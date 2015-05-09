@@ -1,2 +1,2 @@
-# zenmark29.github.io
-Let's see if we can put a simple web page on the internet.
+I did succeed in getting the pages on the internet.
+Now I'm learning how to merge.
