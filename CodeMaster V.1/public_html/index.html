@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Code Master</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            /* This array will convert the alphabet to numbers and then print the numbers in V.1 */
+            var alphabet = {
+                a: 1,
+                b: 2,
+                c: 3,
+                d: 4,
+                e: 5,
+                f: 6,
+                g: 7,
+                h: 8,
+                i: 9,
+                j: 10,
+                k: 11,
+                l: 12,
+                m: 13,
+                n: 14,
+                o: 15,
+                p: 16,
+                q: 17,
+                r: 18,
+                s: 19,
+                t: 20,
+                u: 21,
+                v: 22,
+                w: 23,
+                x: 24,
+                y: 25,
+                z: 26,
+                " ": 27
+            };
+            var demoP;
+
+            function convert() {
+                demoP = document.getElementById("demo");
+                var myAlphaArray = document.getElementById('typedText').value.split("");
+
+                myAlphaArray.forEach(myFunction);
+
+            }
+
+            function myFunction(item, index) {
+                var lowerLetter = item.toLowerCase();
+                if (alphabet[lowerLetter]) {
+                    //TODO - add a function to create a mathematical function based on the request.
+                    demoP.innerHTML = demoP.innerHTML +  alphabet[lowerLetter] + " " + item + "<br />";
+                }
+            }
+        </script>
+
+    </head>
+    <body>
+        <div>type your content here. Press submit when you are done. </div>
+        <div>
+            <form>
+                <div>
+                    <input type="checkbox" id="addition">addition
+                    <input type="checkbox" id="subtraction">subtraction
+                    <input type="checkbox" id="multiplication">multiplication
+                    <input type="checkbox" id="division">division                </div>
+                <textarea cols="132" rows="20" id="typedText"></textarea>
+                <input type="submit" value="Submit" onclick="convert(this);return false;">
+                <p id="demo"></p>
+            </form>
+        </div>
+
+    </body>
+</html>

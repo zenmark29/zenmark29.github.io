@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            function squirt(){
+                var myNumber = document.getElementById('nmbr').value;
+                
+                var previousEstimate = 1;
+                var newEstimate = (1 + myNumber/1) *.5;
+                var keepLooping = true;
+               do {
+                    previousEstimate = newEstimate;
+                    newEstimate = (previousEstimate+ myNumber/previousEstimate) *.5;
+                            
+                    if (newEstimate === previousEstimate){
+                        keepLooping = false;
+                    }     
+                } while (keepLooping);
+                
+                alert('square root = ' + newEstimate +"\n" + newEstimate + " * " + newEstimate + "= " + (newEstimate*newEstimate));
+            }
+        </script>
+    </head>
+    <body>
+        <div>find the square root.</div>
+        <form>
+            <input id='nmbr' type="text"/>
+            <input type="button" value="submit" onclick='squirt();false'/>
+        </form>
+    </body>
+</html>
