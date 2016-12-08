@@ -1,10 +1,30 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="functionlib.js" type="text/javascript"></script>
         <title>Code Master</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
+
+            function giveMeAFunction(input_value) {
+                return  additionFunction(input_value);
+            }
+
+            function additionFunction(input_value) {
+                var funcArray = new Array();
+                var calculatedAdditionFunction = "";
+                for (var i = 0, max = input_value; i < max; i++) {
+                    var remainder = input_value - i;
+                    if (remainder > 0) {
+                        calculatedAdditionFunction = "" + remainder + " + " + i + " = ";
+                        funcArray.push(calculatedAdditionFunction);
+                    }
+                }
+                var index = Math.floor(funcArray.length * Math.random());
+                calculatedAdditionFunction = funcArray[index];
+                return calculatedAdditionFunction;
+            }
             /* This array will convert the alphabet to numbers and then print the numbers in V.1 */
             var alphabet = {
                 a: 1,
@@ -39,6 +59,7 @@
 
             function convert() {
                 demoP = document.getElementById("demo");
+                demoP.innerHTML = '';
                 var myAlphaArray = document.getElementById('typedText').value.split("");
 
                 myAlphaArray.forEach(myFunction);
@@ -49,7 +70,7 @@
                 var lowerLetter = item.toLowerCase();
                 if (alphabet[lowerLetter]) {
                     //TODO - add a function to create a mathematical function based on the request.
-                    demoP.innerHTML = demoP.innerHTML +  alphabet[lowerLetter] + " " + item + "<br />";
+                    demoP.innerHTML = demoP.innerHTML + giveMeAFunction(alphabet[lowerLetter]) + alphabet[lowerLetter] + " " + item + " " + "<br />";
                 }
             }
         </script>
