@@ -39,62 +39,13 @@
                 return  theFunction;
             }
 
-            var additionFunction = function (input_value) {
-                var funcArray = new Array();
-                var calculatedAdditionFunction = "";
-                for (var i = 0, max = input_value; i < max; i++) {
-                    var difference = input_value - i;
-                    if (difference > 0) {
-                        calculatedAdditionFunction = "" + difference + " + " + i + " = ";
-                        funcArray.push(calculatedAdditionFunction);
-                    }
-                }
-                var index = Math.floor(funcArray.length * Math.random());
-                calculatedAdditionFunction = funcArray[index];
-                return calculatedAdditionFunction;
-            };
 
-            var subtractionFunction = function (input_value) {
-                var funcArray = new Array();
-                var calculatedSubtractionFunction = "";
-                for (var i = 0, max = 20; i < max; i++) {
-                    var minuend = input_value + i;
-                    calculatedSubtractionFunction = "" + minuend + " - " + i + " = ";
-                    funcArray.push(calculatedSubtractionFunction);
-                }
-                var index = Math.floor(funcArray.length * Math.random());
-                calculatedSubtractionFunction = funcArray[index];
-                return calculatedSubtractionFunction;
-            };
 
-            var divisionFunction = function (input_value) {
-                var funcArray = new Array();
-                var calculatedDivisionFunction = "";
-                for (var i = 0, max = 20; i < max; i++) {
-                    var dividend = input_value * i;
-                    calculatedDivisionFunction = "" + dividend + " &#247; " + i + " = ";
-                    funcArray.push(calculatedDivisionFunction);
-                }
-                var index = Math.floor(funcArray.length * Math.random());
-                calculatedDivisionFunction = funcArray[index];
-                return calculatedDivisionFunction;
-            };
 
-            var multiplicationFunction = function (input_value) {
-                var funcArray = new Array();
-                var calculatedMultiplicationFunction = "";
-                for (var i = 0, max = input_value; i < max + 1; i++) {
-                    var remainder = input_value % i;
-                    if (remainder === 0) {
-                        var quotient = input_value / i;
-                        calculatedMultiplicationFunction = "" + quotient + " &#215; " + i + " = ";
-                        funcArray.push(calculatedMultiplicationFunction);
-                    }
-                }
-                var index = Math.floor(funcArray.length * Math.random());
-                calculatedMultiplicationFunction = funcArray[index];
-                return calculatedMultiplicationFunction;
-            };
+
+
+
+
 
             /* This array will convert the alphabet to numbers and then print the numbers in V.1 */
             var alphabet = {
@@ -129,6 +80,7 @@
             var demoP;
 
             function convert() {
+
                 demoP = document.getElementById("demo");
                 demoP.innerHTML = '';
                 var myAlphaArray = document.getElementById('typedText').value.split("");
@@ -140,7 +92,6 @@
             function myFunction(item, index) {
                 var lowerLetter = item.toLowerCase();
                 if (alphabet[lowerLetter]) {
-                    //TODO - add a function to create a mathematical function based on the request.
                     demoP.innerHTML = demoP.innerHTML + giveMeAFunction(alphabet[lowerLetter]) + alphabet[lowerLetter] + " " + item + " " + "<br />";
                 }
             }
@@ -155,13 +106,16 @@
                     <input type="checkbox" id="addition">addition
                     <input type="checkbox" id="subtraction">subtraction
                     <input type="checkbox" id="multiplication">multiplication
-                    <input type="checkbox" id="division">division                </div>
-                <textarea cols="132" rows="20" id="typedText"></textarea>
-                <input type="submit" value="Submit" onclick="convert(this);
-                        return false;">
-                <p id="demo"></p>
+                    <input type="checkbox" id="division">division                
+                </div>
+                <textarea cols="132" rows="5" id="typedText"></textarea>
+                <input type="submit" value="Submit" onclick="convert(this); return false;">
             </form>
         </div>
-
+        <p id="demo"></p>
     </body>
+    <footer>&copy; Copyright 2016 Robert Mark Mills - All Rights Reserved
+        You may not use, distribute and/or modify this code without the express, 
+        written consent of the owner named above. 
+        For information email: robert.mark.mills@gmail.com </footer>
 </html>

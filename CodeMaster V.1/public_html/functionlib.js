@@ -4,23 +4,92 @@
  For information email: robert.mark.mills@gmail.com
  */
 
-function addition(input_value){
-    //loop through subtracting 1,2,3 etc until the outcome is zero
-    //each iteraction represents an addition formula that will go into the set of formulas to return
-    
-}
+/**
+ * This function takes a numeric input value and returns a string that is an 
+ * addition function for calculating the value. It creates a number of functions 
+ * and then randomizes the return to improve the possibility of not repeating 
+ * itself.
+ * @param {type} input_value
+ * @return {String}
+ */
+var additionFunction = function (input_value) {
+    var funcArray = new Array();
+    var calculatedAdditionFunction = "";
+    for (var i = 0, max = input_value; i < max; i++) {
+        var difference = input_value - i;
+        if (difference > 0) {
+            calculatedAdditionFunction = "" + difference + " + " + i + " = ";
+            funcArray.push(calculatedAdditionFunction);
+        }
+    }
+    var index = Math.floor(funcArray.length * Math.random());
+    calculatedAdditionFunction = funcArray[index];
+    return calculatedAdditionFunction;
+};
 
-function subtraction(input_value){
-    //take the input value. Starting with input_value +1, input_value +2, etc., calculate the next 30 formulas
-    //that will represent substractions that yield the input value.
-}
+/**
+ * This function takes a numeric input value and returns a string that is an 
+ * addition function for calculating the value. It creates a number of functions 
+ * and then randomizes the return to improve the possibility of not repeating 
+ * itself.
+ * @param {type} input_value
+ * @return {String}
+ */
+var subtractionFunction = function (input_value) {
+    var funcArray = new Array();
+    var calculatedSubtractionFunction = "";
+    for (var i = 0, max = 20; i < max; i++) {
+        var minuend = input_value + i;
+        calculatedSubtractionFunction = "" + minuend + " - " + i + " = ";
+        funcArray.push(calculatedSubtractionFunction);
+    }
+    var index = Math.floor(funcArray.length * Math.random());
+    calculatedSubtractionFunction = funcArray[index];
+    return calculatedSubtractionFunction;
+};
 
-function multiplication(input_value){
-    //starting with 1, 2, 3, etc check the modulo of each. If the modulo is zero then divide and get a potential multiplication that will work.
-    //stop when the iterator >= the input value division by 1 will have already covered this.
-}
+/**
+ * This function takes a numeric input value and returns a string that is an 
+ * addition function for calculating the value. It creates a number of functions 
+ * and then randomizes the return to improve the possibility of not repeating 
+ * itself.
+ * @param {type} input_value
+ * @return {String}
+ */
+var divisionFunction = function (input_value) {
+    var funcArray = new Array();
+    var calculatedDivisionFunction = "";
+    for (var i = 0, max = 20; i < max; i++) {
+        var dividend = input_value * i;
+        calculatedDivisionFunction = "" + dividend + " &#247; " + i + " = ";
+        funcArray.push(calculatedDivisionFunction);
+    }
+    var index = Math.floor(funcArray.length * Math.random());
+    calculatedDivisionFunction = funcArray[index];
+    return calculatedDivisionFunction;
+};
 
-function division(input_value){
-    //take the input value. Starting with input_value * 1, input_value *2, etc., calculate the next 30 formulas that will
-    //represent divisions that yield the input value.
-}
+
+/**
+ * This function takes a numeric input value and returns a string that is an 
+ * addition function for calculating the value. It creates a number of functions 
+ * and then randomizes the return to improve the possibility of not repeating 
+ * itself.
+ * @param {type} input_value
+ * @return {String}
+ */
+var multiplicationFunction = function (input_value) {
+    var funcArray = new Array();
+    var calculatedMultiplicationFunction = "";
+    for (var i = 0, max = input_value; i < max + 1; i++) {
+        var remainder = input_value % i;
+        if (remainder === 0) {
+            var quotient = input_value / i;
+            calculatedMultiplicationFunction = "" + quotient + " &#215; " + i + " = ";
+            funcArray.push(calculatedMultiplicationFunction);
+        }
+    }
+    var index = Math.floor(funcArray.length * Math.random());
+    calculatedMultiplicationFunction = funcArray[index];
+    return calculatedMultiplicationFunction;
+};
