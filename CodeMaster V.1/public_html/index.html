@@ -7,24 +7,95 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
 
+            var switchExpression = 1;
+
             function giveMeAFunction(input_value) {
-                return  additionFunction(input_value);
+                var theFunction = "";
+                switch (switchExpression) {
+                    case 1:
+                        theFunction = additionFunction(input_value);
+                        switchExpression = 2;
+                        break;
+
+                    case 2:
+                        theFunction = subtractionFunction(input_value);
+                        switchExpression = 3;
+                        break;
+
+                    case 3:
+                        theFunction = divisionFunction(input_value);
+                        switchExpression = 4;
+                        break;
+
+                    case 4:
+                        theFunction = multiplicationFunction(input_value);
+                        switchExpression = 1;
+                        break;
+
+                    default:
+                        theFunction = additionFunction(input_value);
+                        switchExpression = 1;
+                }
+                return  theFunction;
             }
 
-            function additionFunction(input_value) {
+            var additionFunction = function (input_value) {
                 var funcArray = new Array();
                 var calculatedAdditionFunction = "";
                 for (var i = 0, max = input_value; i < max; i++) {
-                    var remainder = input_value - i;
-                    if (remainder > 0) {
-                        calculatedAdditionFunction = "" + remainder + " + " + i + " = ";
+                    var difference = input_value - i;
+                    if (difference > 0) {
+                        calculatedAdditionFunction = "" + difference + " + " + i + " = ";
                         funcArray.push(calculatedAdditionFunction);
                     }
                 }
                 var index = Math.floor(funcArray.length * Math.random());
                 calculatedAdditionFunction = funcArray[index];
                 return calculatedAdditionFunction;
-            }
+            };
+
+            var subtractionFunction = function (input_value) {
+                var funcArray = new Array();
+                var calculatedSubtractionFunction = "";
+                for (var i = 0, max = 20; i < max; i++) {
+                    var minuend = input_value + i;
+                    calculatedSubtractionFunction = "" + minuend + " - " + i + " = ";
+                    funcArray.push(calculatedSubtractionFunction);
+                }
+                var index = Math.floor(funcArray.length * Math.random());
+                calculatedSubtractionFunction = funcArray[index];
+                return calculatedSubtractionFunction;
+            };
+
+            var divisionFunction = function (input_value) {
+                var funcArray = new Array();
+                var calculatedDivisionFunction = "";
+                for (var i = 0, max = 20; i < max; i++) {
+                    var dividend = input_value * i;
+                    calculatedDivisionFunction = "" + dividend + " &#247; " + i + " = ";
+                    funcArray.push(calculatedDivisionFunction);
+                }
+                var index = Math.floor(funcArray.length * Math.random());
+                calculatedDivisionFunction = funcArray[index];
+                return calculatedDivisionFunction;
+            };
+
+            var multiplicationFunction = function (input_value) {
+                var funcArray = new Array();
+                var calculatedMultiplicationFunction = "";
+                for (var i = 0, max = input_value; i < max + 1; i++) {
+                    var remainder = input_value % i;
+                    if (remainder === 0) {
+                        var quotient = input_value / i;
+                        calculatedMultiplicationFunction = "" + quotient + " &#215; " + i + " = ";
+                        funcArray.push(calculatedMultiplicationFunction);
+                    }
+                }
+                var index = Math.floor(funcArray.length * Math.random());
+                calculatedMultiplicationFunction = funcArray[index];
+                return calculatedMultiplicationFunction;
+            };
+
             /* This array will convert the alphabet to numbers and then print the numbers in V.1 */
             var alphabet = {
                 a: 1,
@@ -86,7 +157,8 @@
                     <input type="checkbox" id="multiplication">multiplication
                     <input type="checkbox" id="division">division                </div>
                 <textarea cols="132" rows="20" id="typedText"></textarea>
-                <input type="submit" value="Submit" onclick="convert(this);return false;">
+                <input type="submit" value="Submit" onclick="convert(this);
+                        return false;">
                 <p id="demo"></p>
             </form>
         </div>
