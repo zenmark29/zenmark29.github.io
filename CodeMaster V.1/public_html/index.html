@@ -2,6 +2,17 @@
 <html>
     <head>
         <script src="functionlib.js" type="text/javascript"></script>
+        <style>
+            hr { 
+                display: block;
+                margin-top: 0.5em;
+                margin-bottom: 0.5em;
+                margin-left: auto;
+                margin-right: auto;
+                border-style: inset;
+                border-width: 1px;
+            } 
+        </style>
         <title>Code Master</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,38 +86,45 @@
                 x: 24,
                 y: 25,
                 z: 26,
-                " ": 27
+                " ": 27,
+                ".": 28,
+                "?": 29
             };
             var demoP;
-            //TODO - Create an Array for the teacher's version 
-            //TODO - Create an Array for the kids' verison
-            //TODO - Create an Array for the selected functions
-                
-            function convert() {
-                //TODO clear the selected functions array
-                //TODO call a function to populate the selected functions array
-                
-                demoP = document.getElementById("demo");
-                demoP.innerHTML = '';
-                var myAlphaArray = document.getElementById('typedText').value.split("");
-                
-                //TODO - clear the two Arrays
-                
-                myAlphaArray.forEach(myFunction);
-                //TODO - put a title on top of the teachers work
-                //TODO - iterate the teacher array and build the teacher's guide to the work
-                //TODO - add a page eject at the right place
-                //TODO - put a  title on the top of the kids work
-                //TODO - iterate the kids array and build the kids' guide to the work
-                //TODO - add a page eject at the right place
-                //TODO - iterate through the key so the kids can decode the message
+            var studentP;
 
+            function convert() {
+                demoP = document.getElementById("demo");
+                studentP = document.getElementById("student");
+                demoP.innerHTML = '<!-- ^M -->';
+                demoP.innerHTML = demoP.innerHTML + "<h1>Teacher's Copy</h1>";
+                studentP.innerHTML = '<!-- ^M -->';
+                studentP.innerHTML = studentP.innerHTML + "<h1>Student's Copy</h1>";
+                var myAlphaArray = document.getElementById('typedText').value.split("");
+
+
+                myAlphaArray.forEach(myFunction);
+                demoP.innerHTML = demoP.innerHTML + "<hr>";
+                studentP.innerHTML = studentP.innerHTML + "<hr>";
+                //TODO - iterate through the key so the kids can decode the message
+                var keyArray = Object.keys(alphabet);
+                keyArray.forEach(buildAnswerKey);
+
+
+            }
+
+            function buildAnswerKey(item, index) {
+                var letter = item;
+                var value = alphabet[letter];
+                demoP.innerHTML = demoP.innerHTML + "<div>" + value + " = " + letter + "</div>";
+                studentP.innerHTML = studentP.innerHTML + "<div>" + value + " = " + letter + "</div>";
             }
 
             function myFunction(item, index) {
                 var lowerLetter = item.toLowerCase();
                 if (alphabet[lowerLetter]) {
                     demoP.innerHTML = demoP.innerHTML + giveMeAFunction(alphabet[lowerLetter]) + alphabet[lowerLetter] + " " + item + " " + "<br />";
+                    studentP.innerHTML = studentP.innerHTML + giveMeAFunction(alphabet[lowerLetter]) + "<br />";
                 }
             }
         </script>
@@ -123,13 +141,17 @@
                     <input type="checkbox" id="division">division                
                 </div>
                 <textarea cols="132" rows="5" id="typedText"></textarea>
-                <input type="submit" value="Submit" onclick="convert(this); return false;">
+                <input type="submit" value="Submit" onclick="convert(this);
+                        return false;">
             </form>
         </div>
         <p id="demo"></p>
-    </body>
-    <footer>&copy; Copyright 2016 Robert Mark Mills - All Rights Reserved
+        <p id="student"></p>
+        <footer>&copy; Copyright 2016 Robert Mark Mills - All Rights Reserved
         You may not use, distribute and/or modify this code without the express, 
         written consent of the owner named above. 
-        For information email: robert.mark.mills@gmail.com </footer>
+        For information email: robert.mark.mills@gmail.com 
+        </footer>
+    </body>
+    
 </html>
