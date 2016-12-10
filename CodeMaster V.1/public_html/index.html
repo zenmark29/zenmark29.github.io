@@ -12,51 +12,40 @@
                 border-style: inset;
                 border-width: 1px;
             } 
+            div.wrapper {
+                margin-left: 200px;
+            }
+            div.right {
+                float: left;
+                width: 10%;
+            }
+            div.left {
+                float: left;
+                width: 10%;
+            }
+            div.clear {
+                clear:both;
+                
+            }
         </style>
         <title>Code Master</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
 
-            var switchExpression = 1;
-
-            function giveMeAFunction(input_value) {
-                var theFunction = "";
-                switch (switchExpression) {
-                    case 1:
-                        theFunction = additionFunction(input_value);
-                        switchExpression = 2;
-                        break;
-
-                    case 2:
-                        theFunction = subtractionFunction(input_value);
-                        switchExpression = 3;
-                        break;
-
-                    case 3:
-                        theFunction = divisionFunction(input_value);
-                        switchExpression = 4;
-                        break;
-
-                    case 4:
-                        theFunction = multiplicationFunction(input_value);
-                        switchExpression = 1;
-                        break;
-
-                    default:
-                        theFunction = additionFunction(input_value);
-                        switchExpression = 1;
+            var index = 0;
+            var functionPool = []; 
+            /**
+             * Based on what is in the function
+             */
+            function giveMeAFunction2(input_value) {
+                var retValue = functionPool[index](input_value);
+                index+=1;
+                if (index >= functionPool.length){ 
+                    index = 0;
                 }
-                return  theFunction;
+                return retValue;
             }
-
-
-
-
-
-
-
-
 
             /* This array will convert the alphabet to numbers and then print the numbers in V.1 */
             var alphabet = {
@@ -90,48 +79,70 @@
                 ".": 28,
                 "?": 29
             };
-            var demoP;
+            var teacherP;
             var studentP;
-
             function convert() {
-                demoP = document.getElementById("demo");
+                //clear the function pool
+                 functionPool = [];
+                if (document.getElementById("addition").checked){
+                    functionPool.push(additionFunction);
+                }
+                if (document.getElementById("subtraction").checked){
+                    functionPool.push(subtractionFunction);
+                }
+                if (document.getElementById("multiplication").checked){
+                    functionPool.push(multiplicationFunction);
+                }
+                if (document.getElementById("division").checked){
+                    functionPool.push(divisionFunction);
+                }
+                if (functionPool.length === 0){
+                    functionPool.push(additionFunction);
+                }
+                teacherP = document.getElementById("demo");
                 studentP = document.getElementById("student");
-                demoP.innerHTML = '<!-- ^M -->';
-                demoP.innerHTML = demoP.innerHTML + "<h1>Teacher's Copy</h1>";
+                teacherP.innerHTML = '<!-- ^M -->';
+                teacherP.innerHTML = teacherP.innerHTML + "<h1>Teacher's Copy</h1>";
+                teacherP.innerHTML = teacherP.innerHTML + "<div class='wrapper'>";
                 studentP.innerHTML = '<!-- ^M -->';
-                studentP.innerHTML = studentP.innerHTML + "<h1>Student's Copy</h1>";
-                var myAlphaArray = document.getElementById('typedText').value.split("");
+                studentP.innerHTML = studentP.innerHTML + "<h1>" + document.getElementById("question").value + "</h1>";
+                var myAlphaArray = document.getElementById('answer').value.split("");
 
+                /* build the function sheets*/
+                myAlphaArray.forEach(buildFunctionSet);
 
-                myAlphaArray.forEach(myFunction);
-                demoP.innerHTML = demoP.innerHTML + "<hr>";
+                /* build the decoder sheets*/
+                teacherP.innerHTML = teacherP.innerHTML + "</div>";
+                teacherP.innerHTML = teacherP.innerHTML + "<hr>";
                 studentP.innerHTML = studentP.innerHTML + "<hr>";
-                //TODO - iterate through the key so the kids can decode the message
                 var keyArray = Object.keys(alphabet);
-                keyArray.forEach(buildAnswerKey);
+                keyArray.forEach(buildDecoder);
 
 
             }
 
-            function buildAnswerKey(item, index) {
+            function buildDecoder(item, index) {
                 var letter = item;
                 var value = alphabet[letter];
-                demoP.innerHTML = demoP.innerHTML + "<div>" + value + " = " + letter + "</div>";
+                teacherP.innerHTML = teacherP.innerHTML + "<div>" + value + " = " + letter + "</div>";
                 studentP.innerHTML = studentP.innerHTML + "<div>" + value + " = " + letter + "</div>";
             }
 
-            function myFunction(item, index) {
+            function buildFunctionSet(item, index) {
                 var lowerLetter = item.toLowerCase();
                 if (alphabet[lowerLetter]) {
-                    demoP.innerHTML = demoP.innerHTML + giveMeAFunction(alphabet[lowerLetter]) + alphabet[lowerLetter] + " " + item + " " + "<br />";
-                    studentP.innerHTML = studentP.innerHTML + giveMeAFunction(alphabet[lowerLetter]) + "<br />";
+                    var myFunction = giveMeAFunction2(alphabet[lowerLetter]);
+                    teacherP.innerHTML = teacherP.innerHTML + "<div class='left'>" + myFunction + alphabet[lowerLetter] + "</div><div class='right'> " + item + " " + "<div>";
+                    teacherP.innerHTML = teacherP.innerHTML + "<div class='clear'>" + "<div>";
+                    studentP.innerHTML = studentP.innerHTML + myFunction + "<br />";
+                    myFunction = "";
                 }
             }
         </script>
 
     </head>
     <body>
-        <div>type your content here. Press submit when you are done. </div>
+        <div>Enter your question in the top box and your answer in the bottom box. Press submit when you are done. </div>
         <div>
             <form>
                 <div>
@@ -140,7 +151,8 @@
                     <input type="checkbox" id="multiplication">multiplication
                     <input type="checkbox" id="division">division                
                 </div>
-                <textarea cols="132" rows="5" id="typedText"></textarea>
+                <textarea cols="132" rows="5" id="question"></textarea>
+                <textarea cols="132" rows="5" id="answer"></textarea>
                 <input type="submit" value="Submit" onclick="convert(this);
                         return false;">
             </form>
@@ -148,10 +160,10 @@
         <p id="demo"></p>
         <p id="student"></p>
         <footer>&copy; Copyright 2016 Robert Mark Mills - All Rights Reserved
-        You may not use, distribute and/or modify this code without the express, 
-        written consent of the owner named above. 
-        For information email: robert.mark.mills@gmail.com 
+            You may not use, distribute and/or modify this code without the express, 
+            written consent of the owner named above. 
+            For information email: robert.mark.mills@gmail.com 
         </footer>
     </body>
-    
+
 </html>
