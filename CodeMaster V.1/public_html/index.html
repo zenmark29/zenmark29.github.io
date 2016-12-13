@@ -25,30 +25,37 @@
             }
             div.clear {
                 clear:both;
-                
+
+            }
+            @media all {
+                .page-break	{ display: none; }
+            }
+
+            @media print {
+                .page-break	{ display: block; page-break-before: always; }
             }
         </style>
         <title>Code Master</title>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <script>
 
             var index = 0;
-            var functionPool = []; 
-            /**
-             * Based on what is in the function
+             var functionPool = [];
+             /**
+            * Based on what is in the function
              */
-            function giveMeAFunction2(input_value) {
+                function giveMeAFunction2(input_value) {
                 var retValue = functionPool[index](input_value);
-                index+=1;
-                if (index >= functionPool.length){ 
-                    index = 0;
-                }
+                index +=  1;
+                if (index >= functionPool.length) {
+            index = 0;
+            }
                 return retValue;
             }
 
-            /* This array will convert the alphabet to numbers and then print the numbers in V.1 */
-            var alphabet = {
+                /* This array will convert the alphabet to numbers and then print the numbers in V.1 */
+                var alphabet = {
                 a: 1,
                 b: 2,
                 c: 3,
@@ -75,36 +82,37 @@
                 x: 24,
                 y: 25,
                 z: 26,
-                " ": 27,
-                ".": 28,
-                "?": 29
+            " ": 27,
+            ".": 28,
+            "?": 29
             };
             var teacherP;
             var studentP;
             function convert() {
-                //clear the function pool
-                 functionPool = [];
-                if (document.getElementById("addition").checked){
-                    functionPool.push(additionFunction);
-                }
-                if (document.getElementById("subtraction").checked){
-                    functionPool.push(subtractionFunction);
-                }
-                if (document.getElementById("multiplication").checked){
-                    functionPool.push(multiplicationFunction);
-                }
-                if (document.getElementById("division").checked){
-                    functionPool.push(divisionFunction);
-                }
-                if (functionPool.length === 0){
-                    functionPool.push(additionFunction);
-                }
-                teacherP = document.getElementById("demo");
-                studentP = document.getElementById("student");
-                teacherP.innerHTML = '<!-- ^M -->';
-                teacherP.innerHTML = teacherP.innerHTML + "<h1>Teacher's Copy</h1>";
-                teacherP.innerHTML = teacherP.innerHTML + "<div class='wrapper'>";
-                studentP.innerHTML = '<!-- ^M -->';
+                    //clear the function pool
+                functionPool = [];
+            if (document.getElementById("addition").checked)
+            {
+            functionPool.push(additionFunction);
+            }
+            if (document.getElementById("subtraction").checked) {
+                functionPool.push(subtractionFunction);
+            }
+            if (document.getElementById("multiplication").checked) {
+                functionPool.push(multiplicationFunction);
+            }
+            if (document.getElementById("division").checked) {
+                functionPool.push(divisionFunction);
+            }
+            if (functionPool.length === 0) {
+                functionPool.push(additionFunction);
+            }
+            teacherP = document.getElementById("demo");
+            studentP = document.getElementById("student");
+            teacherP.innerHTML = '<div class="page-break"></div>';
+            teacherP.innerHTML = teacherP.innerHTML + "<h1>Teacher's Copy</h1>";
+            teacherP.innerHTML = teacherP.innerHTML + "<div class='wrapper'>";
+                studentP.innerHTML = '<div class="page-break"></div>';
                 studentP.innerHTML = studentP.innerHTML + "<h1>" + document.getElementById("question").value + "</h1>";
                 var myAlphaArray = document.getElementById('answer').value.split("");
 
@@ -154,7 +162,7 @@
                 <textarea cols="132" rows="5" id="question"></textarea>
                 <textarea cols="132" rows="5" id="answer"></textarea>
                 <input type="submit" value="Submit" onclick="convert(this);
-                        return false;">
+                                    return false;">
             </form>
         </div>
         <p id="demo"></p>
