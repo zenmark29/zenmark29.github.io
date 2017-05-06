@@ -1,189 +1,206 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="icon" href="data:;base64,iVBORw0KGgo=">
-        <script src="functionlib.js" type="text/javascript"></script>
-        <style>
-            hr { 
+
+<head>
+    <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+    <script src="functionlib.js" type="text/javascript"></script>
+    <style>
+        hr {
+            display: block;
+            margin-top: 0.5em;
+            margin-bottom: 0.5em;
+            margin-left: auto;
+            margin-right: auto;
+            border-style: inset;
+            border-width: 1px;
+        }
+        
+        div.wrapper {
+            margin-left: 200px;
+        }
+        
+        div.right {
+            float: left;
+            width: 15%;
+            font-family: Tahoma, Geneva, sans-serif;
+            font-size: large;
+        }
+        
+        div.left {
+            float: left;
+            width: 15%;
+            font-family: Tahoma, Geneva, sans-serif;
+            font-size: large;
+        }
+        
+        div.clear {
+            clear: both;
+        }
+        
+        @media all {
+            .page-break {
+                display: none;
+            }
+        }
+        
+        @media print {
+            .page-break {
                 display: block;
-                margin-top: 0.5em;
-                margin-bottom: 0.5em;
-                margin-left: auto;
-                margin-right: auto;
-                border-style: inset;
-                border-width: 1px;
-            } 
-            div.wrapper {
-                margin-left: 200px;
+                page-break-before: always;
             }
-            div.right {
-                float: left;
-                width: 15%;
-                font-family: Tahoma, Geneva, sans-serif;
-                font-size: large;
+        }
+    </style>
+    <title>Code Master</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        var index = 0;
+        var functionPool = [];
+
+        /**
+         * 
+         * @param {type} input_value
+         * @returns {unresolved}
+         */
+        function giveMeAFunction2(input_value) {
+            var retValue = functionPool[index](input_value);
+            index += 1;
+            if (index >= functionPool.length) {
+                index = 0;
             }
-            div.left {
-                float: left;
-                width: 15%;
-                font-family: Tahoma, Geneva, sans-serif;
-                font-size: large;
+            return retValue;
+        }
+
+        /* This array will convert the alphabet to numbers and then print the numbers in V.1 */
+        var alphabet = {
+            a: 1,
+            b: 2,
+            c: 3,
+            d: 4,
+            e: 5,
+            f: 6,
+            g: 7,
+            h: 8,
+            i: 9,
+            j: 10,
+            k: 11,
+            l: 12,
+            m: 13,
+            n: 14,
+            o: 15,
+            p: 16,
+            q: 17,
+            r: 18,
+            s: 19,
+            t: 20,
+            u: 21,
+            v: 22,
+            w: 23,
+            x: 24,
+            y: 25,
+            z: 26,
+            " ": 27,
+            ".": 28,
+            "?": 29,
+            "!": 30,
+            "@": 31,
+            "#": 32,
+            "?": 33,
+            "(": 34,
+            ")": 35,
+            "\"": 36,
+            "'": 37,
+            ",": 38
+        };
+        var teacherP;
+        var studentP;
+
+        function convert() {
+            //clear the function pool
+            functionPool = [];
+            //populate the function pool based on selected elements
+            if (document.getElementById("addition").checked) {
+                functionPool.push(additionFunction);
             }
-            div.clear {
-                clear:both;
-
+            if (document.getElementById("subtraction").checked) {
+                functionPool.push(subtractionFunction);
             }
-            @media all {
-                .page-break	{ display: none; }
+            if (document.getElementById("multiplication").checked) {
+                functionPool.push(multiplicationFunction);
             }
-
-            @media print {
-                .page-break	{ display: block; page-break-before: always; }
+            if (document.getElementById("division").checked) {
+                functionPool.push(divisionFunction);
             }
-        </style>
-        <title>Code Master</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <script>
-
-            var index = 0;
-            var functionPool = [];
-
-            /**
-             * 
-             * @param {type} input_value
-             * @returns {unresolved}
-             */
-            function giveMeAFunction2(input_value) {
-                var retValue = functionPool[index](input_value);
-                index += 1;
-                if (index >= functionPool.length) {
-                    index = 0;
-                }
-                return retValue;
+            if (functionPool.length === 0) {
+                functionPool.push(additionFunction);
             }
 
-            /* This array will convert the alphabet to numbers and then print the numbers in V.1 */
-            var alphabet = {
-                a: 1,
-                b: 2,
-                c: 3,
-                d: 4,
-                e: 5,
-                f: 6,
-                g: 7,
-                h: 8,
-                i: 9,
-                j: 10,
-                k: 11,
-                l: 12,
-                m: 13,
-                n: 14,
-                o: 15,
-                p: 16,
-                q: 17,
-                r: 18,
-                s: 19,
-                t: 20,
-                u: 21,
-                v: 22,
-                w: 23,
-                x: 24,
-                y: 25,
-                z: 26,
-                " ": 27,
-                ".": 28,
-                "?": 29
-            };
-            var teacherP;
-            var studentP;
-            function convert() {
-                //clear the function pool
-                functionPool = [];
-                //populate the function pool based on selected elements
-                if (document.getElementById("addition").checked)
-                {
-                    functionPool.push(additionFunction);
-                }
-                if (document.getElementById("subtraction").checked) {
-                    functionPool.push(subtractionFunction);
-                }
-                if (document.getElementById("multiplication").checked) {
-                    functionPool.push(multiplicationFunction);
-                }
-                if (document.getElementById("division").checked) {
-                    functionPool.push(divisionFunction);
-                }
-                if (functionPool.length === 0) {
-                    functionPool.push(additionFunction);
-                }
+            //locate the places to update.
+            teacherP = document.getElementById("teacher");
+            studentP = document.getElementById("student");
+            teacherP.innerHTML = '<div class="page-break"></div>';
+            teacherP.innerHTML = teacherP.innerHTML + "<h1>Teacher's Copy</h1>";
+            teacherP.innerHTML = teacherP.innerHTML + "<div class='wrapper'>";
+            studentP.innerHTML = '<div class="page-break"></div>';
+            studentP.innerHTML = studentP.innerHTML + "<h1>" + document.getElementById("question").value + "</h1>";
+            var myAlphaArray = document.getElementById('answer').value.split("");
 
-                //locate the places to update.
-                teacherP = document.getElementById("teacher");
-                studentP = document.getElementById("student");
-                teacherP.innerHTML = '<div class="page-break"></div>';
-                teacherP.innerHTML = teacherP.innerHTML + "<h1>Teacher's Copy</h1>";
-                teacherP.innerHTML = teacherP.innerHTML + "<div class='wrapper'>";
-                studentP.innerHTML = '<div class="page-break"></div>';
-                studentP.innerHTML = studentP.innerHTML + "<h1>" + document.getElementById("question").value + "</h1>";
-                var myAlphaArray = document.getElementById('answer').value.split("");
+            /* build the function sheets*/
+            myAlphaArray.forEach(buildFunctionSet);
+            teacherP.innerHTML = teacherP.innerHTML + "<div class='clear'>" + "</div>";
 
-                /* build the function sheets*/
-                myAlphaArray.forEach(buildFunctionSet);
+            /* build the decoder sheets*/
+            teacherP.innerHTML = teacherP.innerHTML + "<div class='page-break'></div><h1>Decoder</h1>";
+            studentP.innerHTML = studentP.innerHTML + "<div class='page-break'></div><h1>Decoder</h1>";
+            var keyArray = Object.keys(alphabet);
+            keyArray.forEach(buildDecoder);
+            teacherP.innerHTML = teacherP.innerHTML + "<br>";
+
+        }
+
+        function buildDecoder(item, index) {
+            var letter = item;
+            var value = alphabet[letter];
+            teacherP.innerHTML = teacherP.innerHTML + "<div class='left'>" + value + " = " + letter + "</div>";
+            teacherP.innerHTML = teacherP.innerHTML + "<div class='clear'>" + "</div>";
+            studentP.innerHTML = studentP.innerHTML + "<div class='left'>" + value + " = " + letter + "</div>";
+            studentP.innerHTML = studentP.innerHTML + "<div class='clear'>" + "</div>";
+        }
+
+        function buildFunctionSet(item, index) {
+            var lowerLetter = item.toLowerCase();
+            if (alphabet[lowerLetter]) {
+                var myFunction = giveMeAFunction2(alphabet[lowerLetter]);
+                teacherP.innerHTML = teacherP.innerHTML + "<div class='left'>" + myFunction + alphabet[lowerLetter] + "</div><div class='right'> " + item + " " + "<div>";
                 teacherP.innerHTML = teacherP.innerHTML + "<div class='clear'>" + "</div>";
-
-                /* build the decoder sheets*/
-                teacherP.innerHTML = teacherP.innerHTML + "<div class='page-break'></div><h1>Decoder</h1>";
-                studentP.innerHTML = studentP.innerHTML + "<div class='page-break'></div><h1>Decoder</h1>";
-                var keyArray = Object.keys(alphabet);
-                keyArray.forEach(buildDecoder);
-                teacherP.innerHTML = teacherP.innerHTML + "<br>";
-
-            }
-
-            function buildDecoder(item, index) {
-                var letter = item;
-                var value = alphabet[letter];
-                teacherP.innerHTML = teacherP.innerHTML + "<div class='left'>" + value + " = " + letter + "</div>";
-                teacherP.innerHTML = teacherP.innerHTML + "<div class='clear'>" + "</div>";
-                studentP.innerHTML = studentP.innerHTML + "<div class='left'>" + value + " = " + letter + "</div>";
+                studentP.innerHTML = studentP.innerHTML + "<div class='left'>" + myFunction + "</div>";
                 studentP.innerHTML = studentP.innerHTML + "<div class='clear'>" + "</div>";
+                myFunction = "";
             }
+        }
+    </script>
 
-            function buildFunctionSet(item, index) {
-                var lowerLetter = item.toLowerCase();
-                if (alphabet[lowerLetter]) {
-                    var myFunction = giveMeAFunction2(alphabet[lowerLetter]);
-                    teacherP.innerHTML = teacherP.innerHTML + "<div class='left'>" + myFunction + alphabet[lowerLetter] + "</div><div class='right'> " + item + " " + "<div>";
-                    teacherP.innerHTML = teacherP.innerHTML + "<div class='clear'>" + "</div>";
-                    studentP.innerHTML = studentP.innerHTML + "<div class='left'>" + myFunction + "</div>";
-                    studentP.innerHTML = studentP.innerHTML + "<div class='clear'>" + "</div>";
-                    myFunction = "";
-                }
-            }
-        </script>
+</head>
 
-    </head>
-    <body>
-        <div>Enter your question in the top box and your answer in the bottom box. Press submit when you are done. </div>
-        <div>
-            <form>
-                <div>
-                    <input type="checkbox" id="addition">addition
-                    <input type="checkbox" id="subtraction">subtraction
-                    <input type="checkbox" id="multiplication">multiplication
-                    <input type="checkbox" id="division">division                
-                </div>
-                <textarea cols="132" rows="5" id="question"></textarea>
-                <textarea cols="132" rows="5" id="answer"></textarea>
-                <input type="submit" value="Submit" onclick="convert(this);
+<body>
+    <div>Enter your question in the top box and your answer in the bottom box. Press submit when you are done. </div>
+    <div>
+        <form>
+            <div>
+                <input type="checkbox" id="addition">addition
+                <input type="checkbox" id="subtraction">subtraction
+                <input type="checkbox" id="multiplication">multiplication
+                <input type="checkbox" id="division">division
+            </div>
+            <textarea cols="132" rows="5" id="question"></textarea>
+            <textarea cols="132" rows="5" id="answer"></textarea>
+            <input type="submit" value="Submit" onclick="convert(this);
                         return false;">
-            </form>
-        </div>
-        <div id="teacher"></div>
-        <div id="student"></div>
-        <div>&copy; Copyright 2016 - All Rights Reserved
-            You may not use, distribute and/or modify this code without the express, 
-            written consent of the author. For information email: robert.mark.mills@gmail.com </div>
-    </body>
+        </form>
+    </div>
+    <div id="teacher"></div>
+    <div id="student"></div>
+    <div>&copy; Copyright 2016 - All Rights Reserved You may not use, distribute and/or modify this code without the express, written consent of the author. For information email: robert.mark.mills@gmail.com </div>
+</body>
 
 </html>
