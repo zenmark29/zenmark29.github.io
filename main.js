@@ -16,8 +16,9 @@ function startTimer(duration, display) {
         if (diff <= 0 && schoolIsIn) {
             clearInterval(intervalID);
             document.getElementById("mybody").textContent = "school is out!";
-            document.getElementById("myLink").innerHTML = '<iframe width="420" height="315" src="https://www.youtube.com/embed/2Oo8QzDHimQ?autoplay=1" frameborder="0" allowfullscreen></iframe>';
+            //document.getElementById("myLink").innerHTML = '<iframe width="420" height="315" src="https://www.youtube.com/embed?v=mBqiC5ox8Bw?autoplay=1" frameborder="0" allowfullscreen></iframe>';
             schoolIsIn = false;
+            display.textContent = ""
             return;
         }
         // does the same job as parseInt truncates the float
@@ -32,9 +33,9 @@ function startTimer(duration, display) {
 
         minutes = minutes < 10 ? "0" + minutes : minutes;
         seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = days + " days " + hours + " hours, " + minutes + " minutes, and " + seconds + " seconds until freedom!";
-
+        if (schoolIsIn) {
+            display.textContent = days + " days " + hours + " hours, " + minutes + " minutes, and " + seconds + " seconds until freedom!";
+        }
         if (diff <= 0) {
             // add one second so that the count down starts at the full duration
             // example 05:00 not 04:59
@@ -54,7 +55,7 @@ function startTimer(duration, display) {
 window.onload = function() {
     var today = new Date();
     var lastDay = new Date(2017, 5, 1, 15, 30, 0);
-    //var lastDay = new Date(2015, 4, 20, 21, 56, 0);
+    //var lastDay = new Date(2017, 4, 5, 21, 52, 0);
     var lastDayString = lastDay.toDateString();
     var duration = (lastDay - today) / (1000);
 
