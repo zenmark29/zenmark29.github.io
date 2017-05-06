@@ -12,7 +12,7 @@
  * @param {type} input_value
  * @return {String}
  */
-var additionFunction = function (input_value) {
+var additionFunction = function(input_value) {
     var funcArray = new Array();
     var calculatedAdditionFunction = "";
     for (var i = 0, max = input_value; i < max; i++) {
@@ -35,7 +35,7 @@ var additionFunction = function (input_value) {
  * @param {type} input_value
  * @return {String}
  */
-var subtractionFunction = function (input_value) {
+var subtractionFunction = function(input_value) {
     var funcArray = new Array();
     var calculatedSubtractionFunction = "";
     for (var i = 0, max = 20; i < max; i++) {
@@ -56,10 +56,10 @@ var subtractionFunction = function (input_value) {
  * @param {type} input_value
  * @return {String}
  */
-var divisionFunction = function (input_value) {
+var divisionFunction = function(input_value) {
     var funcArray = new Array();
     var calculatedDivisionFunction = "";
-    for (var i = 0, max = 20; i < max; i++) {
+    for (var i = 1, max = 20; i < max; i++) {
         var dividend = input_value * i;
         calculatedDivisionFunction = "" + dividend + " &#247; " + i + " = ";
         funcArray.push(calculatedDivisionFunction);
@@ -78,7 +78,7 @@ var divisionFunction = function (input_value) {
  * @param {type} input_value
  * @return {String}
  */
-var multiplicationFunction = function (input_value) {
+var multiplicationFunction = function(input_value) {
     var funcArray = new Array();
     var calculatedMultiplicationFunction = "";
     for (var i = 0, max = input_value; i < max + 1; i++) {
