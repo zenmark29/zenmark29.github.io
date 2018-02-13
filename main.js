@@ -18,7 +18,7 @@ function startTimer(duration, display) {
             document.getElementById("mybody").textContent = "school is out!";
             //document.getElementById("myLink").innerHTML = '<iframe width="420" height="315" src="https://www.youtube.com/embed?v=mBqiC5ox8Bw?autoplay=1" frameborder="0" allowfullscreen></iframe>';
             schoolIsIn = false;
-            display.textContent = ""
+            display.textContent = "";
             return;
         }
         // does the same job as parseInt truncates the float
