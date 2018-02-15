@@ -108,6 +108,7 @@
                     clearInterval(x);
                     messageElement.innerHTML = '';
                     document.getElementById("timer_display").innerHTML = "Your meditation is complete. Good job!";
+                    navigator.vibrate(500);
                 }
             }, 1000);
         }
