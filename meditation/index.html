@@ -1,0 +1,103 @@
+<html>
+
+<head>
+    <title>Relax in your breath</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .button {
+            background-color: #4CAF50;
+            /* Green */
+            border: none;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+        }
+        
+        .button5 {
+            border-radius: 50%;
+        }
+    </style>
+    <script>
+        function meditate() {
+            var messageElement = document.getElementById('messages');
+            var messageId = 0;
+            var startMinutes = document.getElementById('minutes').value;
+            var holdMinutes = startMinutes;
+            // Set the date we're counting down to
+            var countDownDate = new Date();
+            var holdSeconds = 0;
+            var opacity = 0;
+            var opacityChangeConstant = .03;
+
+            countDownDate.setTime(countDownDate.getTime() + startMinutes * 60 * 1000);
+            var countDownDate = countDownDate.getTime();
+
+            // Update the count down every 1 second
+            var x = setInterval(function() {
+
+                // Get todays date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now an the count down date
+                var distance = countDownDate - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="timer_display"
+                document.getElementById("timer_display").innerHTML = "Time remaining: " + hours + "h " +
+                    minutes + "m " + seconds + "s ";
+                if (seconds !== holdSeconds) {
+                    console.log("seconds = " + seconds);
+                    holdSeconds = seconds;
+                    if (seconds < 30) {
+                        opacity -= opacityChangeConstant;
+                        if (opacity <= 0) {
+                            opacity = 0;
+                        }
+                        messageElement.style.opacity = opacity;
+
+                    } else {
+                        opacity += opacityChangeConstant;
+                        if (opacity > 1) {
+                            opacity = 1;
+                        }
+                        messageElement.style.opacity = opacity;
+                    }
+                }
+                if (holdMinutes !== minutes) {
+                    holdMinutes = minutes;
+                    messageElement.innerHTML = messages[messageId];
+                    messageId++;
+                    if (messageId >= messages.length) {
+                        messageId = 0;
+                    }
+                }
+                // If the count down is finished, write some text 
+                if (distance < 0) {
+                    clearInterval(x);
+                    messageElement.innerHTML = '';
+                    document.getElementById("timer_display").innerHTML = "Your meditation is complete. Good job!";
+                }
+            }, 1000);
+        }
+    </script>
+
+    <script>
+        var messages = ["Sit straight, but relaxed...", "Let your body relax...", "Focus on the breath...", "Simply observe the flow of thoughts, while staying aware...", "This moment, just being is enough...", "It is OK to take care of yourself..."];
+    </script>
+</head>
+<div id="meditate"><button onclick="meditate()" class="button button5">meditate</button></div>
+<div id="timer_display"><input id="minutes" type="number" min="1" max="2" value="30" item-width="3"></div>
+<div id="your_streak"></div>
+<div id="messages">Welcome to your meditation...</div>
+
+</html>
