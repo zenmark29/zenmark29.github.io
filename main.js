@@ -54,9 +54,10 @@ function startTimer(duration, display) {
 
 window.onload = function() {
     var today = new Date();
-    var lastDay = new Date(2017, 5, 1, 15, 30, 0);
+    var lastDay = new Date(2018, 4, 30, 16, 30, 0);
     //var lastDay = new Date(2017, 4, 5, 21, 52, 0);
     var lastDayString = lastDay.toDateString();
+    document.getElementById("end_date").innerHTML = lastDayString;
     var duration = (lastDay - today) / (1000);
 
     display = document.getElementById("time_remaining");
