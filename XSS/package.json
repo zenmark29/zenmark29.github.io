@@ -1,0 +1,21 @@
+{
+    "name": "XSS",
+    "version": "1.0.0",
+    "keywords": [
+        "util",
+        "functional",
+        "server",
+        "client",
+        "browser"
+    ],
+    "author": "RMM",
+    "contributors": [
+    ],
+    "dependencies": {
+        "mime": "^1.2.7",
+        "cookie-parser": "^1.4.0"
+    },
+    "scripts": {
+        "start": "node server.js"
+    }
+}
