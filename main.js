@@ -8,18 +8,21 @@ function startTimer(duration, display) {
         intervalID,
         schoolIsIn = true;
 
+
     function timer() {
         // get the number of seconds that have elapsed since 
         // startTimer() was called
         diff = duration - (((Date.now() - start) / 1000) | 0);
 
         if (diff <= 0 && schoolIsIn) {
+
             clearInterval(intervalID);
             document.getElementById("mybody").textContent = "school is out!";
             //document.getElementById("myLink").innerHTML = '<iframe width="420" height="315" src="https://www.youtube.com/embed?v=mBqiC5ox8Bw?autoplay=1" frameborder="0" allowfullscreen></iframe>';
             schoolIsIn = false;
             display.textContent = "";
             return;
+
         }
         // does the same job as parseInt truncates the float
 
@@ -43,11 +46,14 @@ function startTimer(duration, display) {
         }
     }
     // we don't want to wait a full second before the timer starts
+
     if (schoolIsIn) {
         timer();
         intervalID = setInterval(timer, 1000);
+
     }
 }
+
 
 
 
@@ -56,6 +62,7 @@ window.onload = function() {
     var today = new Date();
     var lastDay = new Date(2018, 4, 30, 16, 30, 0);
     //var lastDay = new Date(2017, 4, 5, 21, 52, 0);
+
     var lastDayString = lastDay.toDateString();
     document.getElementById("end_date").innerHTML = lastDayString;
     var duration = (lastDay - today) / (1000);
