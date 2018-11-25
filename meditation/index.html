@@ -41,6 +41,8 @@
 
 
         function meditate() {
+            var bowl_sound = document.getElementById("bowl");
+            bowl_sound.play();
             document.getElementById("start_button").style = "display: none";
             document.getElementById("stop_button").style = "display: block";
             var messageElement = document.getElementById('messages');
@@ -112,6 +114,8 @@
                     document.getElementById("stop_button").style = "display: none";
                     document.getElementById("timer_display").innerHTML =
                         "Your meditation is complete. Good job!";
+                        var bowl_sound = document.getElementById("bowl");
+                        bowl_sound.play();
                     
                 }
             }, 1000);
@@ -135,5 +139,11 @@
     <input id="minutes" type="number" min="1" max="5" value="1" item-width="5"> minutes</div>
 <div id="your_streak" align="center"></div>
 <div id="messages" align="center">Welcome to your meditation...</div>
-
+<div id="audio_controls" align="center">
+<audio  id="bowl">
+    <source src="Meditation_Bowl.wav" type="audio/wav">
+    
+    Your browser does not support the audio tag.
+  </audio>
+</div>
 </html>
