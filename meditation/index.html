@@ -27,7 +27,8 @@
         var x;
         var startMinutes;
         var holdMinutes;
-
+        var initial_volume;
+        
         function pause() {
             clearTimeout(x);
             holdMinutes += 1;
@@ -38,11 +39,26 @@
 
         }
 
-
+        function fadeVolume(audio, callback) {
+            var factor  = 0.01,
+                speed   = 100;
+            if (audio.volume > factor) {
+                setTimeout(function(){
+                    audio.volume -= factor;
+                    fadeVolume(audio, callback);         
+                }, speed);
+            } else {
+                (typeof(callback) !== 'function') || callback();
+            }
+        }
+        
 
         function meditate() {
             var bowl_sound = document.getElementById("bowl");
+            initial_volume = bowl_sound.volume;
             bowl_sound.play();
+            
+            fadeVolume(bowl_sound, function(){console.log('fade complete');});
             document.getElementById("start_button").style = "display: none";
             document.getElementById("stop_button").style = "display: block";
             var messageElement = document.getElementById('messages');
@@ -115,7 +131,9 @@
                     document.getElementById("timer_display").innerHTML =
                         "Your meditation is complete. Good job!";
                         var bowl_sound = document.getElementById("bowl");
+                        bowl_sound.volume = initial_volume;
                         bowl_sound.play();
+                        fadeVolume(bowl_sound, function(){console.log('fade complete');});
                     
                 }
             }, 1000);
@@ -140,10 +158,11 @@
 <div id="your_streak" align="center"></div>
 <div id="messages" align="center">Welcome to your meditation...</div>
 <div id="audio_controls" align="center">
-<audio  id="bowl">
-    <source src="Meditation_Bowl.flac" type="audio/wav">
-    
-    Your browser does not support the audio tag.
-  </audio>
+    <audio id="bowl">
+        <source src="Meditation_Bowl.flac" type="audio/wav">
+
+        Your browser does not support the audio tag.
+    </audio>
 </div>
+
 </html>
