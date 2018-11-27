@@ -22,12 +22,32 @@
         .button5 {
             border-radius: 50%;
         }
-        .footer {
-            position:absolute;
-            bottom:0;
-            width:100%;
-            height:60px;   /* Height of the footer */
-        }
+        
+        html,
+body {
+   margin:0;
+   padding:0;
+   height:100%;
+}
+#container {
+   min-height:100%;
+   position:relative;
+}
+#header {
+ 
+   padding:10px;
+}
+#body {
+   padding:10px;
+   padding-bottom:60px;   /* Height of the footer */
+}
+#footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:60px;   /* Height of the footer */
+   
+}
     </style>
     <script>
         var x;
@@ -153,25 +173,34 @@
         ];
     </script>
 </head>
-<div id="meditate" align="center">
-    <button id="start_button" onclick="meditate()" class="button button5" style="display: block;">meditate</button>
-</div>
-<div id="pause" align="center">
-    <button id="stop_button" onclick="pause()" class="button button5" style="display: none">pause</button>
-</div>
-<div id="timer_display" align="center">
-    <input id="minutes" type="number" min="1" max="5" value="1" item-width="5"> minutes</div>
-<div id="your_streak" align="center"></div>
-<div id="messages" align="center">Welcome to your meditation...</div>
-<div id="audio_controls" align="center">
-    <audio id="bowl">
-        <source src="Meditation_Bowl.flac" type="audio/wav">
+<div id="container">
+    <div id="header">
 
-        Your browser does not support the audio tag.
-    </audio>
-</div>
-<div align="center">
-    <footer class='footer'>version 0.1</footer>
+
+
+        <div id="meditate" align="center">
+            <button id="start_button" onclick="meditate()" class="button button5" style="display: block;">meditate</button>
+        </div>
+        <div id="pause" align="center">
+            <button id="stop_button" onclick="pause()" class="button button5" style="display: none">pause</button>
+        </div>
+    </div>
+    <div id="body">
+        <div id="timer_display" align="center">
+            <input id="minutes" type="number" min="1" max="5" value="1" item-width="5"> minutes</div>
+        <div id="your_streak" align="center"></div>
+        <div id="messages" align="center">Welcome to your meditation...</div>
+        <div id="audio_controls" align="center">
+            <audio id="bowl">
+                <source src="Meditation_Bowl.flac" type="audio/wav">
+
+                Your browser does not support the audio tag.
+            </audio>
+        </div>
+    </div>
+    <div align="center">
+        <footer id='footer'>version 0.1</footer>
+    </div>
 </div>
 
 </html>
