@@ -177,8 +177,11 @@
     <script>
         function rememberLastMeditation(){
             if (typeof(Storage) !== "undefined") {
-               
-                document.getElementById('minutes').value = localStorage.getItem("minutes");
+               if (localStorage.getItem("minutes") !== ''){
+                    document.getElementById('minutes').value = localStorage.getItem("minutes");
+               } else {
+                document.getElementById("minutes").value = 5;
+               }
             } else {
                 document.getElementById("minutes").value = 5;
             }
