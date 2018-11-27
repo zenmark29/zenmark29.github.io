@@ -24,30 +24,30 @@
         }
         
         html,
-body {
-   margin:0;
-   padding:0;
-   height:100%;
-}
-#container {
-   min-height:100%;
-   position:relative;
-}
-#header {
- 
-   padding:10px;
-}
-#body {
-   padding:10px;
-   padding-bottom:60px;   /* Height of the footer */
-}
-#footer {
-   position:absolute;
-   bottom:0;
-   width:100%;
-   height:60px;   /* Height of the footer */
-   
-}
+        body {
+        margin:0;
+        padding:0;
+        height:100%;
+        }
+        #container {
+        min-height:100%;
+        position:relative;
+        }
+        #header {
+        
+        padding:10px;
+        }
+        #body {
+        padding:10px;
+        padding-bottom:60px;   /* Height of the footer */
+        }
+        #footer {
+        position:absolute;
+        bottom:0;
+        width:100%;
+        height:60px;   /* Height of the footer */
+        
+        }
     </style>
     <script>
         var x;
@@ -92,6 +92,11 @@ body {
             var startMinutes;
             try {
                 startMinutes = document.getElementById('minutes').value;
+                if (typeof(Storage) !== "undefined") {
+                    localStorage.setItem("minutes", startMinutes);
+                } else {
+                    console.log("no support for localstorage");
+                }
             } catch (err) {
                 startMinutes = holdMinutes;
             }
@@ -167,40 +172,52 @@ body {
     </script>
 
     <script>
+        function rememberLastMeditation(){
+            if (typeof(Storage) !== "undefined") {
+               
+                document.getElementById('minutes').value = localStorage.getItem("minutes");
+            } else {
+                document.getElementById("minutes").value = 5;
+            }
+        }
+    </script>
+
+    <script>
         var messages = ["Sit straight, but relaxed...", "Let your body relax...", "Focus on the breath...",
             "Simply observe the flow of thoughts, while staying aware...", "This moment, just being is enough...",
             "It is OK to take care of yourself..."
         ];
     </script>
 </head>
-<div id="container">
-    <div id="header">
+
+<body onload="rememberLastMeditation();">
+    <div id="container">
+        <div id="header">
 
 
 
-        <div id="meditate" align="center">
-            <button id="start_button" onclick="meditate()" class="button button5" style="display: block;">meditate</button>
+            <div id="meditate" align="center">
+                <button id="start_button" onclick="meditate()" class="button button5" style="display: block;">meditate</button>
+            </div>
+            <div id="pause" align="center">
+                <button id="stop_button" onclick="pause()" class="button button5" style="display: none">pause</button>
+            </div>
         </div>
-        <div id="pause" align="center">
-            <button id="stop_button" onclick="pause()" class="button button5" style="display: none">pause</button>
+        <div id="body">
+            <div id="timer_display" align="center">
+                <input id="minutes" type="number" min="1" max="60" value="5" item-width="2"> minutes</div>
+            <div id="your_streak" align="center"></div>
+            <div id="messages" align="center">Welcome to your meditation...</div>
+            <div id="audio_controls" align="center">
+                <audio id="bowl">
+                    <source src="Meditation_Bowl.flac" type="audio/wav">
+                </audio>
+            </div>
+        </div>
+        <div align="center">
+            <footer id='footer'>version 0.1</footer>
         </div>
     </div>
-    <div id="body">
-        <div id="timer_display" align="center">
-            <input id="minutes" type="number" min="1" max="5" value="1" item-width="5"> minutes</div>
-        <div id="your_streak" align="center"></div>
-        <div id="messages" align="center">Welcome to your meditation...</div>
-        <div id="audio_controls" align="center">
-            <audio id="bowl">
-                <source src="Meditation_Bowl.flac" type="audio/wav">
-
-                Your browser does not support the audio tag.
-            </audio>
-        </div>
-    </div>
-    <div align="center">
-        <footer id='footer'>version 0.1</footer>
-    </div>
-</div>
+</body>
 
 </html>
