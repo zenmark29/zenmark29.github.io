@@ -39,6 +39,15 @@
         }
         #body {
         padding:10px;
+        
+            text-align: center;
+            text-decoration: none;
+           /* display: inline-block;*/
+            font-size: 16px;
+            /*margin: 4px 2px;*/
+            cursor: pointer;
+            align-items: center;
+            
         padding-bottom:60px;   /* Height of the footer */
         }
         #footer {
@@ -78,6 +87,21 @@
             }
         }
 
+        function updateCompletedMeditationTime(){
+            try {
+               
+                console.log("minutes completed = " + startMinutes);
+                
+                if (typeof (Storage) !== "undefined") {
+                    localStorage.setItem("totalMeditationMinutes", Number(localStorage.getItem("totalMeditationMinutes"))  + Number(startMinutes));
+                } else {
+                    console.log("no support for localstorage");
+                }
+                
+            } catch (err) {
+                console.log('error storing completed minutes.');
+            }
+        }
 
         function meditate() {
             var bowl_sound = document.getElementById("bowl");
@@ -89,7 +113,7 @@
             document.getElementById("stop_button").style = "display: block";
             var messageElement = document.getElementById('messages');
             var messageId = 0;
-            var startMinutes;
+            //var startMinutes;
             try {
                 startMinutes = document.getElementById('minutes').value;
                 if (startMinutes === '') {
@@ -162,8 +186,10 @@
                     clearInterval(x);
                     messageElement.innerHTML = '';
                     document.getElementById("stop_button").style = "display: none";
+                    console.log("update should happen here.");
+                    updateCompletedMeditationTime();
                     document.getElementById("timer_display").innerHTML =
-                        "Your meditation is complete. Good job!";
+                        "Your meditation is complete.<br> Your total mediation = " + localStorage.getItem("totalMeditationMinutes") + " minutes.";
                     var bowl_sound = document.getElementById("bowl");
                     bowl_sound.volume = initial_volume;
                     bowl_sound.play();
@@ -175,9 +201,11 @@
     </script>
 
     <script>
+         
+
         function rememberLastMeditation() {
             if (typeof (Storage) !== "undefined") {
-                if (localStorage.getItem("minutes") > 1) {
+                if (localStorage.getItem("minutes")) {
                     document.getElementById('minutes').value = localStorage.getItem("minutes");
                 } else {
                     document.getElementById("minutes").value = 5;
@@ -185,13 +213,14 @@
             } else {
                 document.getElementById("minutes").value = 5;
             }
+
         }
     </script>
 
     <script>
         var messages = ["Sit straight, but relaxed...", "Let your body relax...", "Focus on the breath...",
             "Simply observe the flow of thoughts, while staying aware...", "This moment, just being is enough...",
-            "It is OK to take care of yourself..."
+            "It is OK to take care of yourself...", "self care is good care..."
         ];
     </script>
 </head>
@@ -221,7 +250,7 @@
             </div>
         </div>
         <div align="center">
-            <footer id='footer'>version 0.1</footer>
+            <footer id='footer'>version 0.2</footer>
         </div>
     </div>
 </body>
