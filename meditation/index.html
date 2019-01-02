@@ -58,6 +58,7 @@
         
         }
     </style>
+     <script src="js/date.js"></script>
     <script>
         var x;
         var startMinutes;
@@ -94,6 +95,12 @@
                 
                 if (typeof (Storage) !== "undefined") {
                     localStorage.setItem("totalMeditationMinutes", Number(localStorage.getItem("totalMeditationMinutes"))  + Number(startMinutes));
+                    lastDate = localStorage.getItem('LAST_DATE') ? localStorage.getItem('LAST_DATE') : new Date();
+                    lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 1;
+                    var results = calculateStreak(lastDate, lastStreak);
+                    console.log(results[0] + " " + results[1]);
+                    localStorage.setItem('LAST_DATE', results[0]);
+                    localStorage.setItem('STREAK',results[1]);
                 } else {
                     console.log("no support for localstorage");
                 }
@@ -102,8 +109,9 @@
                 console.log('error storing completed minutes.');
             }
         }
-
-        function meditate() {
+    
+        function meditate() { 
+            document.getElementById("streak").innerHTML = "";
             var bowl_sound = document.getElementById("bowl");
             initial_volume = bowl_sound.volume;
             bowl_sound.play();
@@ -190,6 +198,8 @@
                     updateCompletedMeditationTime();
                     document.getElementById("timer_display").innerHTML =
                         "Your meditation is complete.<br> Your total mediation = " + localStorage.getItem("totalMeditationMinutes") + " minutes.";
+                    var lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 0;
+                    document.getElementById("streak").innerHTML = "You have a " + lastStreak + " day streak.";    
                     var bowl_sound = document.getElementById("bowl");
                     bowl_sound.volume = initial_volume;
                     bowl_sound.play();
@@ -210,6 +220,8 @@
                 } else {
                     document.getElementById("minutes").value = 5;
                 }
+                var lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 0;
+                document.getElementById("streak").innerHTML = "You have a " + lastStreak + " day streak.";
             } else {
                 document.getElementById("minutes").value = 5;
             }
@@ -243,6 +255,7 @@
                 <input id="minutes" type="number" min="1" max="60" value="5" item-width="2"> minutes</div>
             <div id="your_streak" align="center"></div>
             <div id="messages" align="center">Welcome to your meditation...</div>
+            <div id="streak" align="center"></div>
             <div id="audio_controls" align="center">
                 <audio id="bowl">
                     <source src="Meditation_Bowl.flac" type="audio/wav">
@@ -250,7 +263,7 @@
             </div>
         </div>
         <div align="center">
-            <footer id='footer'>version 0.2</footer>
+            <footer id='footer'>version 0.3</footer>
         </div>
     </div>
 </body>
