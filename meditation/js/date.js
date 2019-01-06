@@ -25,6 +25,7 @@ var date3 = new Date((new Date().valueOf()) + (2 * oneDay));
  * @returns [newDateObj, newStreak]
  */
 function calculateStreak(dateObject, currentStreak) {
+    console.log("calculating streak");
     var oneDay = 1000 * 3600 * 24;
     var todayDateObj = new Date();
     var today = convertDateToString(todayDateObj);
@@ -33,15 +34,18 @@ function calculateStreak(dateObject, currentStreak) {
     
     /* There was more than one mediation ina day, so the streak doesn't change. */
     if (previousDate === today) {
+        console.log('same day meditation');
         return [todayDateObj, currentStreak];
     }
     /* This is a continuous practice */
     if (previousDate === yesterday) {
+        console.log('sequential day meditation');
         return [todayDateObj, currentStreak + 1];
     }
 
     /* this is a new streak */
-    return [todayDateObj, 0];
+    console.log('start a new streak');
+    return [todayDateObj, 1];
 }
 /*
 var result = calculateStreak(date1, 5);
