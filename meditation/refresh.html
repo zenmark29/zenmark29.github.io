@@ -1,0 +1,21 @@
+<html>
+
+<head>
+    <script src="js/date.js"></script>
+</head>
+
+<body>
+    refreshed.
+    <script>
+        var oneDay = 1000 * 3600 * 24;
+        var previousMeditation = new Date((new Date()).valueOf() - oneDay);
+        var streak = 10;
+        var results = [previousMeditation, streak];
+        localStorage.setItem('LAST_DATE', results[0]);
+        localStorage.setItem('STREAK', results[1]);
+        console.log(" yesterday's date : " + convertDateToString(previousMeditation));
+        console.log(" stored : " + convertDateToString(new Date(localStorage.getItem('LAST_DATE'))));
+    </script>
+</body>
+
+</html>
