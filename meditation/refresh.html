@@ -13,6 +13,8 @@
         var results = [previousMeditation, streak];
         localStorage.setItem('LAST_DATE', results[0]);
         localStorage.setItem('STREAK', results[1]);
+        var startMinutes = 200;
+        localStorage.setItem("totalMeditationMinutes", Number(localStorage.getItem("totalMeditationMinutes")) + Number(startMinutes));
         console.log(" yesterday's date : " + convertDateToString(previousMeditation));
         console.log(" stored : " + convertDateToString(new Date(localStorage.getItem('LAST_DATE'))));
     </script>
