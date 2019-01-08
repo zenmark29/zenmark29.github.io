@@ -95,9 +95,11 @@
                 console.log("minutes completed = " + startMinutes);
 
                 if (typeof (Storage) !== "undefined") {
+                    console.log("minutes before the current mediation: " + localStorage.getItem("totalMeditationMinutes"));
                     var total_minutes = Number(localStorage.getItem("totalMeditationMinutes")) + Number(startMinutes);
                     var hours = Math.floor(total_minutes / 60);
                     var minutes_left = total_minutes % 60;
+                    console.log("minutes_left" + minutes_left);
                     localStorage.setItem("totalMeditationMinutes",total_minutes);
                     lastDate = localStorage.getItem('LAST_DATE') ? new Date(localStorage.getItem('LAST_DATE')) : new Date();
                     lastDate = (lastDate instanceof Date) ? lastDate : new Date();
@@ -203,7 +205,6 @@
                     messageElement.innerHTML = '';
                     document.getElementById("stop_button").style = "display: none";
                     console.log("update should happen here.");
-                    updateCompletedMeditationTime();
                     document.getElementById("timer_display").innerHTML = updateCompletedMeditationTime();
                         //"Your meditation is complete.<br> Your total mediation = " + localStorage.getItem("totalMeditationMinutes") + " minutes.";
                     var lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 0;
@@ -271,7 +272,7 @@
             </div>
         </div>
         <div align="center">
-            <footer id='footer'>version 0.4</footer>
+            <footer id='footer'>version 0.5</footer>
         </div>
     </div>
 </body>
