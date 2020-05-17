@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Relax in your breath</title>
+    <title>My Meditation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         .button {
@@ -25,21 +25,23 @@
         
         html,
         body {
-        margin:0;
-        padding:0;
-        height:100%;
-        font-family: Arial, Helvetica, sans-serif;
+            margin:0;
+            padding:0;
+            height:100%;
+            font-family: Arial, Helvetica, sans-serif;
         }
         #container {
-        min-height:100%;
-        position:relative;
+            min-height:100%;
+            position:relative;
+            background-color: rgb(1, 19, 2);
+            color: white;
         }
         #header {
         
-        padding:10px;
+            padding:10px;
         }
         #body {
-        padding:10px;
+            padding:10px;
         
             text-align: center;
             text-decoration: none;
@@ -65,7 +67,10 @@
         var startMinutes;
         var holdMinutes;
         var initial_volume;
-
+        
+        /**
+        * Allows the user to pause their meditation if they are interrupted.
+        */
         function pause() {
             clearTimeout(x);
             holdMinutes += 1;
@@ -76,6 +81,9 @@
 
         }
 
+        /**
+        * fades the sound of the bowl so it trails off in a nice manner
+        */
         function fadeVolume(audio, callback) {
             var factor = 0.01,
                 speed = 100;
@@ -89,6 +97,9 @@
             }
         }
 
+        /**
+        * Stores the amount of time of the meditation and keps keep track of the streak
+        */
         function updateCompletedMeditationTime() {
             try {
 
@@ -120,6 +131,11 @@
             }
         }
 
+        /**
+        * Starts the meditation session
+        * Plays the intro bowl sound
+        * Starts the countdown timer
+        */
         function meditate() {
             document.getElementById("streak").innerHTML = "";
             var bowl_sound = document.getElementById("bowl");
@@ -221,7 +237,9 @@
 
     <script>
 
-
+        /**
+        * Displays the meditation history
+        */
         function recallLastMeditation() {
             if (typeof (Storage) !== "undefined") {
                 if (localStorage.getItem("minutes")) {
@@ -239,9 +257,23 @@
     </script>
 
     <script>
-        var messages = ["Sit straight, but relaxed...", "Let your body relax...", "Focus on the breath...",
-            "Simply observe the flow of thoughts, while staying aware...", "This moment, just being is enough...",
-            "It is OK to take care of yourself...", "self care is good care..."
+        var messages = [
+        "Sit straight, but relaxed...", 
+        "Let your body relax...", 
+        "Focus on the breath...",
+        "Simply observe the flow of thoughts, while staying aware...", 
+        "This moment, just being is enough...",
+        "This moment, you are enough...",
+        "It is OK to take care of yourself...", 
+        "Self care is good care...",
+        "The mind wanders naturally, return focus to your breath...",
+        "Relax into your breath...",
+        "The mind is a river of feelings, thoughts, memories, and plans...",
+        "Focus on the breath...",
+        "You are not your mind...",
+        "Let your awareness open up and feel your body breathing...",
+        "The river flows through you, but you are not the river...",
+        "let's refresh..."
         ];
     </script>
 </head>
@@ -272,7 +304,7 @@
             </div>
         </div>
         <div align="center">
-            <footer id='footer'>version 0.5</footer>
+            <footer id='footer'>version 0.6</footer>
         </div>
     </div>
 </body>
