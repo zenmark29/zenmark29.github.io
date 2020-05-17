@@ -186,9 +186,9 @@
                 var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+                displaySeconds = seconds.toString().length > 1 ? seconds.toString() : '0' + seconds.toString();
                 // Display the result in the element with id="timer_display"
-                document.getElementById("timer_display").innerHTML = minutes + ":" + seconds;
+                document.getElementById("timer_display").innerHTML = minutes + ":" + displaySeconds;
                 if (seconds !== holdSeconds) {
                     //console.log("seconds = " + seconds);
                     holdSeconds = seconds;
@@ -273,7 +273,7 @@
         "You are not your mind...",
         "Let your awareness open up and feel your body breathing...",
         "The river flows through you, but you are not the river...",
-        "let's refresh..."
+        "Let's refresh..."
         ];
     </script>
 </head>
