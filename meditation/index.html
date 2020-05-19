@@ -7,7 +7,8 @@
     <link rel="manifest" href="./site.webmanifest">
     <title>My Meditation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A free, simple, online meditation timer that doesn't track you. All data is stored locally in your browser."/>
+    <meta name="description"
+        content="A free, simple, online meditation timer that doesn't track you. All data is stored locally in your browser." />
     <style>
         .button {
             background-color: #4CAF50;
@@ -27,43 +28,49 @@
         .button5 {
             border-radius: 50%;
         }
-        
+
         html,
         body {
-            margin:0;
-            padding:0;
-            height:100%;
+            margin: 0;
+            padding: 0;
+            height: 100%;
             font-family: Arial, Helvetica, sans-serif;
         }
+
         #container {
-            min-height:100%;
-            position:relative;
+            min-height: 100%;
+            position: relative;
             background-color: rgb(1, 19, 2);
             color: white;
         }
+
         #header {
-        
-            padding:10px;
+
+            padding: 10px;
         }
+
         #body {
-            padding:10px;
-        
+            padding: 10px;
+
             text-align: center;
             text-decoration: none;
-           /* display: inline-block;*/
+            /* display: inline-block;*/
             font-size: 16px;
             /*margin: 4px 2px;*/
             cursor: pointer;
             align-items: center;
-            
-        padding-bottom:60px;   /* Height of the footer */
+
+            padding-bottom: 60px;
+            /* Height of the footer */
         }
+
         #footer {
-        position:absolute;
-        bottom:0;
-        width:100%;
-        height:60px;   /* Height of the footer */
-        
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            /* Height of the footer */
+
         }
     </style>
     <script src="js/date.js"></script>
@@ -72,7 +79,7 @@
         var startMinutes;
         var holdMinutes;
         var initial_volume;
-        
+
         /**
         * Allows the user to pause their meditation if they are interrupted.
         */
@@ -117,7 +124,7 @@
                     var hours = Math.floor(total_minutes / 60);
                     var minutes_left = total_minutes % 60;
                     console.log("minutes_left" + minutes_left);
-                    localStorage.setItem("totalMeditationMinutes",total_minutes);
+                    localStorage.setItem("totalMeditationMinutes", total_minutes);
                     lastDate = localStorage.getItem('LAST_DATE') ? new Date(localStorage.getItem('LAST_DATE')) : new Date();
                     lastDate = (lastDate instanceof Date) ? lastDate : new Date();
                     lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 1;
@@ -125,7 +132,7 @@
                     console.log(results[0] + " " + results[1]);
                     localStorage.setItem('LAST_DATE', results[0]);
                     localStorage.setItem('STREAK', results[1]);
-                    return   "Your meditation is complete.<br> Your total mediation = " + hours + " hours and " + minutes_left + " minutes.";
+                    return "Your meditation is complete.<br> Your total mediation = " + hours + " hours and " + minutes_left + " minutes.";
                 } else {
                     console.log("no support for localstorage");
                     return "Good job!";
@@ -194,8 +201,8 @@
                 var seconds = Math.floor((distance % (1000 * 60)) / 1000);
                 displaySeconds = seconds.toString().length > 1 ? seconds.toString() : '0' + seconds.toString();
                 // Display the result in the element with id="timer_display"
-                
-                timerDisplayId = setTimeout(function() { document.getElementById("timer_display").innerHTML = minutes + ":" + displaySeconds;}, 0);
+
+                timerDisplayId = setTimeout(function () { document.getElementById("timer_display").innerHTML = minutes + ":" + displaySeconds; }, 0);
                 //window.requestAnimationFrame(function() { document.getElementById("timer_display").innerHTML = minutes + ":" + displaySeconds;});
                 //document.getElementById("timer_display").innerHTML = minutes + ":" + displaySeconds;
                 if (seconds !== holdSeconds) {
@@ -232,7 +239,7 @@
                     document.getElementById("stop_button").style = "display: none";
                     console.log("update should happen here.");
                     document.getElementById("timer_display").innerHTML = updateCompletedMeditationTime();
-                        //"Your meditation is complete.<br> Your total mediation = " + localStorage.getItem("totalMeditationMinutes") + " minutes.";
+                    //"Your meditation is complete.<br> Your total mediation = " + localStorage.getItem("totalMeditationMinutes") + " minutes.";
                     var lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 0;
                     document.getElementById("streak").innerHTML = lastStreak + " day streak.";
                     var bowl_sound = document.getElementById("bowl");
@@ -268,22 +275,22 @@
 
     <script>
         var messages = [
-        "Sit straight, but relaxed...", 
-        "Let your body relax...", 
-        "Focus on the breath...",
-        "Simply observe the flow of thoughts, while staying aware...", 
-        "This moment, just being is enough...",
-        "This moment, you are enough...",
-        "It is OK to take care of yourself...", 
-        "Self care is good care...",
-        "The mind wanders naturally, return focus to your breath...",
-        "Relax into your breath...",
-        "The mind is a river of feelings, thoughts, memories, and plans...",
-        "Focus on the breath...",
-        "You are not your mind...",
-        "Let your awareness open up and feel your body breathing...",
-        "The river flows through you, but you are not the river...",
-        "Let's refresh..."
+            "Sit straight, but relaxed...",
+            "Let your body relax...",
+            "Focus on the breath...",
+            "Simply observe the flow of thoughts, while staying aware...",
+            "This moment, just being is enough...",
+            "This moment, you are enough...",
+            "It is OK to take care of yourself...",
+            "Self care is good care...",
+            "The mind wanders naturally, return focus to your breath...",
+            "Relax into your breath...",
+            "The mind is a river of feelings, thoughts, memories, and plans...",
+            "Focus on the breath...",
+            "You are not your mind...",
+            "Let your awareness open up and feel your body breathing...",
+            "The river flows through you, but you are not the river...",
+            "Let's refresh..."
         ];
     </script>
 </head>
@@ -295,7 +302,8 @@
 
 
             <div id="meditate" align="center">
-                <button id="start_button" onclick="meditate()" class="button button5" style="display: block;">meditate</button>
+                <button id="start_button" onclick="meditate()" class="button button5"
+                    style="display: block;">meditate</button>
             </div>
             <div id="pause" align="center">
                 <button id="stop_button" onclick="pause()" class="button button5" style="display: none">pause</button>
