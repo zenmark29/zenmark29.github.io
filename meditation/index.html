@@ -30,6 +30,15 @@
             align-items: center;
         }
 
+        .center {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+
         .button5 {
             border-radius: 50%;
         }
@@ -163,6 +172,7 @@
             fadeVolume(bowl_sound, function () { console.log('fade complete'); });
             document.getElementById("start_button").style = "display: none";
             document.getElementById("stop_button").style = "display: block";
+            document.getElementById("welcome_message").style = "display: none";
             var messageElement = document.getElementById('messages');
             var messageId = 0;
             //var startMinutes;
@@ -304,8 +314,13 @@
     <div id="container">
         <div id="header">
 
+            <div id="your_streak" align="center"></div>
+            <div id="welcome_message" align="center">Welcome to your meditation...</div>
+            <div id="streak" align="center"></div>
 
-
+        </div>
+        <div id="body" class="center">
+            <div id="messages" align="center">&nbsp;</div>
             <div id="meditate" align="center">
                 <button id="start_button" onclick="meditate()" class="button button5"
                     style="display: block;">meditate</button>
@@ -313,13 +328,9 @@
             <div id="pause" align="center">
                 <button id="stop_button" onclick="pause()" class="button button5" style="display: none">pause</button>
             </div>
-        </div>
-        <div id="body">
             <div id="timer_display" align="center">
                 <input id="minutes" type="number" min="1" max="60" value="5" item-width="2"> minutes</div>
-            <div id="your_streak" align="center"></div>
-            <div id="messages" align="center">Welcome to your meditation...</div>
-            <div id="streak" align="center"></div>
+
             <div id="audio_controls" align="center">
                 <audio id="bowl">
                     <source src="Meditation_Bowl.flac" type="audio/wav">
