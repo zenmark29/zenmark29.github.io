@@ -158,6 +158,8 @@
             }
         }
 
+        // flag so we only play the start sound at the beginning.
+        var firstTime = true;
         /**
         * Starts the meditation session
         * Plays the intro bowl sound
@@ -169,10 +171,14 @@
             initial_volume = bowl_sound.volume;
             bowl_sound.play();
 
-            fadeVolume(bowl_sound, function () { console.log('fade complete'); });
+            if (firstTime) {
+                fadeVolume(bowl_sound, function () { console.log('fade complete'); });
+                firstTime = false;
+            }
+            
             document.getElementById("start_button").style = "display: none";
             document.getElementById("stop_button").style = "display: block";
-            document.getElementById("welcome_message").style = "display: none";
+            document.getElementById("welcome_message").style = "visibility: hidden";
             var messageElement = document.getElementById('messages');
             var messageId = 0;
             //var startMinutes;
@@ -312,14 +318,9 @@
 
 <body onload="recallLastMeditation();">
     <div id="container">
-        <div id="header">
-
-            <div id="your_streak" align="center"></div>
+        <div id="body" class="center">
             <div id="welcome_message" align="center">Welcome to your meditation...</div>
             <div id="streak" align="center"></div>
-
-        </div>
-        <div id="body" class="center">
             <div id="messages" align="center">&nbsp;</div>
             <div id="meditate" align="center">
                 <button id="start_button" onclick="meditate()" class="button button5"
