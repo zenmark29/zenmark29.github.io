@@ -93,6 +93,7 @@
         var startMinutes;
         var holdMinutes;
         var initial_volume;
+        var messageId = 0;
 
         /**
         * Allows the user to pause their meditation if they are interrupted.
@@ -101,6 +102,7 @@
             clearTimeout(x);
             clearTimeout(timerDisplayId);
             holdMinutes += 1;
+            messageId = messageId == 0? 0: messageId -1;
             document.getElementById("timer_display").innerHTML = "stopped...";
             document.getElementById('messages').innerHTML = '';
             document.getElementById("start_button").style = "display: block";
@@ -180,7 +182,7 @@
             document.getElementById("stop_button").style = "display: block";
             document.getElementById("welcome_message").style = "visibility: hidden";
             var messageElement = document.getElementById('messages');
-            var messageId = 0;
+            //var messageId = 0;
             //var startMinutes;
             try {
                 startMinutes = document.getElementById('minutes').value;
@@ -346,7 +348,7 @@
             </div>
         </div>
         <div align="center">
-            <footer id='footer'>version 0.6.0.1</footer>
+            <footer id='footer'>version 0.6.0.2</footer>
         </div>
     </div>
 </body>
