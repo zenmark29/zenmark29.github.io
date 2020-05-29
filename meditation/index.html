@@ -88,6 +88,7 @@
         }
     </style>
     <script src="js/date.js"></script>
+    <script src="js/nosleep.js"></script>
     <script>
         var x;
         var startMinutes;
@@ -102,7 +103,7 @@
             clearTimeout(x);
             clearTimeout(timerDisplayId);
             holdMinutes += 1;
-            messageId = messageId == 0? 0: messageId -1;
+            messageId = messageId == 0 ? 0 : messageId - 1;
             document.getElementById("timer_display").innerHTML = "stopped...";
             document.getElementById('messages').innerHTML = '';
             document.getElementById("start_button").style = "display: block";
@@ -177,7 +178,7 @@
                 fadeVolume(bowl_sound, function () { console.log('fade complete'); });
                 firstTime = false;
             }
-            
+
             document.getElementById("start_button").style = "display: none";
             document.getElementById("stop_button").style = "display: block";
             document.getElementById("welcome_message").style = "visibility: hidden";
@@ -269,6 +270,7 @@
                     bowl_sound.volume = initial_volume;
                     bowl_sound.play();
                     fadeVolume(bowl_sound, function () { console.log('fade complete'); });
+                    noSleep.disable();
 
                 }
             }, 1000);
@@ -351,6 +353,13 @@
             <footer id='footer'>version 0.6.0.2</footer>
         </div>
     </div>
+    <script>
+        var noSleep = new NoSleep();
+        var theButton = document.getElementById("start_button");
+        theButton.addEventListener('click', function () {
+            noSleep.enable(); // keep the screen on!
+        }, false);
+    </script>
 </body>
 
 </html>
