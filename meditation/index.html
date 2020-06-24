@@ -30,6 +30,16 @@
             align-items: center;
         }
 
+        .messages {
+            margin: 0;
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+
+        }
+
         .center {
             margin: 0;
             position: absolute;
@@ -169,7 +179,7 @@
         * Starts the countdown timer
         */
         function meditate() {
-            document.getElementById("streak").innerHTML = "";
+            document.getElementById("streak").innerHTML = "&nbsp";
             var bowl_sound = document.getElementById("bowl");
             initial_volume = bowl_sound.volume;
             bowl_sound.play();
@@ -261,8 +271,9 @@
                     clearTimeout(timerDisplayId); // need to shut down the other thread
                     messageElement.innerHTML = '';
                     document.getElementById("stop_button").style = "display: none";
-                    console.log("update should happen here.");
-                    document.getElementById("timer_display").innerHTML = updateCompletedMeditationTime();
+                    document.getElementById("timer_display").innerHTML = '';
+                    document.getElementById("messages").innerHTML = updateCompletedMeditationTime();
+                    messageElement.style.opacity = 1;
                     //"Your meditation is complete.<br> Your total mediation = " + localStorage.getItem("totalMeditationMinutes") + " minutes.";
                     var lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 0;
                     document.getElementById("streak").innerHTML = lastStreak + " day streak.";
@@ -329,10 +340,13 @@
 
 <body onload="recallLastMeditation();">
     <div id="container">
-        <div id="body" class="center">
+        <div id="message_container" class="messages">
             <div id="welcome_message" align="center">Welcome to your meditation...</div>
             <div id="streak" align="center"></div>
             <div id="messages" align="center">&nbsp;</div>
+        </div>
+
+        <div id="body" class="center">
             <div id="meditate" align="center">
                 <button id="start_button" onclick="meditate()" class="button button5"
                     style="display: block;">meditate</button>
@@ -350,7 +364,7 @@
             </div>
         </div>
         <div align="center">
-            <footer id='footer'>version 0.7.0.0</footer>
+            <footer id='footer'>version 0.7.0.1</footer>
         </div>
     </div>
     <script>
