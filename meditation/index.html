@@ -180,11 +180,11 @@
         */
         function meditate() {
             document.getElementById("streak").innerHTML = "&nbsp";
-            var bowl_sound = document.getElementById("bowl");
-            initial_volume = bowl_sound.volume;
-            bowl_sound.play();
 
             if (firstTime) {
+                var bowl_sound = document.getElementById("bowl");
+                initial_volume = bowl_sound.volume;
+                bowl_sound.play();
                 fadeVolume(bowl_sound, function () { console.log('fade complete'); });
                 firstTime = false;
             }
