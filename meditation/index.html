@@ -214,7 +214,7 @@
             var countDownDate = new Date();
             var holdSeconds = 0;
             var opacity = 0;
-            var opacityChangeConstant = .03;
+            var opacityChangeConstant = .001;
 
             countDownDate.setTime(countDownDate.getTime() + startMinutes * 60 * 1000);
             var countDownDate = countDownDate.getTime();
@@ -237,11 +237,10 @@
                 // Display the result in the element with id="timer_display"
 
                 timerDisplayId = setTimeout(function () { document.getElementById("timer_display").innerHTML = minutes + ":" + displaySeconds; }, 10);
-                //window.requestAnimationFrame(function() { document.getElementById("timer_display").innerHTML = minutes + ":" + displaySeconds;});
-                //document.getElementById("timer_display").innerHTML = minutes + ":" + displaySeconds;
-                if (seconds !== holdSeconds) {
-                    //console.log("seconds = " + seconds);
-                    holdSeconds = seconds;
+
+                //if (seconds !== holdSeconds) {
+                    
+                  //  holdSeconds = seconds;
                     if (seconds < 30) {
                         opacity -= opacityChangeConstant;
                         if (opacity <= 0) {
@@ -256,7 +255,7 @@
                         }
                         messageElement.style.opacity = opacity;
                     }
-                }
+                //}
                 if (holdMinutes !== minutes) {
                     opacity = 0;
                     holdMinutes = minutes;
@@ -285,7 +284,7 @@
                     noSleep.disable();
 
                 }
-            }, 200);
+            }, 20);
         }
     </script>
 
@@ -373,7 +372,7 @@
             </div>
         </div>
         <div align="center">
-            <footer id='footer'>version 0.7.0.7</footer>
+            <footer id='footer'>version 0.7.0.8</footer>
         </div>
     </div>
     <script>
