@@ -7,16 +7,9 @@
 <body>
     refreshed.
     <script>
-        var oneDay = 1000 * 3600 * 24;
-        var previousMeditation = new Date((new Date()).valueOf() - oneDay);
-        var streak = 10;
-        var results = [previousMeditation, streak];
-        localStorage.setItem('LAST_DATE', results[0]);
-        localStorage.setItem('STREAK', results[1]);
-        var startMinutes = 200;
-        localStorage.setItem("totalMeditationMinutes", Number(localStorage.getItem("totalMeditationMinutes")) + Number(startMinutes));
-        console.log(" yesterday's date : " + convertDateToString(previousMeditation));
-        console.log(" stored : " + convertDateToString(new Date(localStorage.getItem('LAST_DATE'))));
+        localStorage.setItem('STREAK', '');
+        localStorage.setItem('minutes', '');
+        localStorage.setItem('totalMeditationMinutes', '');
     </script>
 </body>
 
