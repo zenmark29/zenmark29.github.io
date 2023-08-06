@@ -277,7 +277,7 @@
                     messageElement.style.opacity = 1;
                     //"Your meditation is complete.<br> Your total mediation = " + localStorage.getItem("totalMeditationMinutes") + " minutes.";
                     var lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 0;
-                    var wording = lastStreak == 1 ? " meditation." : " meditations.";
+                    var wording = lastStreak == 1 ? " meditation completed." : " meditations completed.";
                     document.getElementById("streak").innerHTML = lastStreak + wording;
                     var bowl_sound = document.getElementById("bowl");
                     bowl_sound.volume = initial_volume;
@@ -303,7 +303,7 @@
                     document.getElementById("minutes").value = 5;
                 }
                 var lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 0;
-                var wording = lastStreak == 1 ? " meditation." : " meditations.";
+                var wording = lastStreak == 1 ? " meditation completed." : " meditations completed.";
                 document.getElementById("streak").innerHTML = lastStreak + wording;
             } else {
                 document.getElementById("minutes").value = 5;
