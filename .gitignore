@@ -16,5 +16,7 @@
 /nbproject/private/
 >>>>>>> 18f2ff124bcac272aeea0898b77cd1137ac15e98
 meditation/.vscode/settings.json
+meditation/.vscode/tasks.json
+meditation/.vscode/launch.json
 .DS_Store
 meditation/.DS_Store

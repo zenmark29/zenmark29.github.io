@@ -268,8 +268,8 @@
                 }
                 // If the count down is finished, write some text
                 if (distance < 0) {
-                    clearInterval(x);
                     clearTimeout(timerDisplayId); // need to shut down the other thread
+                    clearInterval(x);
                     messageElement.innerHTML = '';
                     document.getElementById("stop_button").style = "display: none";
                     document.getElementById("timer_display").innerHTML = '';
