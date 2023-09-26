@@ -1,0 +1,26 @@
+/* Add your CSS styling here */
+.container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+input {
+    display: block;
+    margin: 10px auto;
+}
+
+button {
+    display: block;
+    margin: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.error-container {
+    text-align: center;
+    background-color: #ffcccc;
+    padding: 10px;
+    margin: 20px auto;
+}
