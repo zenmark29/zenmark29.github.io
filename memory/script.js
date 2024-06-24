@@ -68,11 +68,11 @@ function saveData() {
     container.innerHTML = '';
 
     const savedData = JSON.parse(localStorage.getItem('memoryData'));
-    savedData.forEach((item) => {
-        const p = document.createElement('p');
-        p.textContent = item;
-        container.appendChild(p);
-    });
+    // savedData.forEach((item) => {
+    //     const p = document.createElement('p');
+    //     p.textContent = item;
+    //     container.appendChild(p);
+    // });
 
     // Show test button
     const testButton = document.getElementById('testButton');
@@ -96,7 +96,7 @@ function testMemory() {
     });
 
     // Display errors
-    const errorContainer = '';
+    var errorContainer = '';
     errorContainer = document.createElement('div');
     errorContainer.className = 'error-container';
 
