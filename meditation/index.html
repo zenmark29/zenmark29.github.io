@@ -105,6 +105,29 @@
         var holdMinutes;
         var initial_volume;
         var messageId = 0;
+        var bowl_sound = document.getElementById("bowl");
+
+        function playSoundWithPause(sound, initialVolume, pauseTime) {
+            // Function to play sound with a pause after fade
+
+            function playWithFade(sound, callback) {
+                sound.volume = initialVolume;
+                sound.play();
+                fadeVolume(sound, callback);
+            }
+
+            // Loop to play sound three times
+            for (let i = 0; i < 3; i++) {
+                playSoundWithFade(sound, function() {
+                // Callback function after each fade
+                setTimeout(() => {
+                    if (i < 2) {  // Check if not the last iteration
+                    playWithFade(sound, callback); // Play again after pause
+                    }
+                }, pauseTime * 1000); // Add delay in milliseconds
+                });
+            }
+        }
 
         /**
         * Allows the user to pause their meditation if they are interrupted.
@@ -280,9 +303,10 @@
                     var wording = lastStreak == 1 ? " meditation completed." : " meditations completed.";
                     document.getElementById("streak").innerHTML = lastStreak + wording;
                     var bowl_sound = document.getElementById("bowl");
-                    bowl_sound.volume = initial_volume;
-                    bowl_sound.play();
-                    fadeVolume(bowl_sound, function () { console.log('fade complete'); });
+                    playSoundWithPause(bowl_sound, 0.5, 3); // Play bowl_sound 3 times with 0.5 volume and 3 seconds pause
+                    // bowl_sound.volume = initial_volume;
+                    // bowl_sound.play();
+                    // fadeVolume(bowl_sound, function () { console.log('fade complete'); });
                     noSleep.disable();
 
                 }
