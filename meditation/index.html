@@ -279,10 +279,10 @@
                     var lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 0;
                     var wording = lastStreak == 1 ? " meditation completed." : " meditations completed.";
                     document.getElementById("streak").innerHTML = lastStreak + wording;
-                    var bowl_sound = document.getElementById("bowl");
-                    bowl_sound.volume = initial_volume;
-                    bowl_sound.play();
-                    fadeVolume(bowl_sound, function () { console.log('fade complete'); });
+                    var chime_sound = document.getElementById("chimes");
+                    // chime_sound.volume = initial_volume;
+                    chime_sound.play();
+                    fadeVolume(chime_sound, function () { console.log('fade complete'); });
                     noSleep.disable();
 
                 }
@@ -366,6 +366,9 @@
             <div id="audio_controls" align="center">
                 <audio id="bowl">
                     <source src="Meditation_Bowl.flac" type="audio/wav">
+                </audio>
+                <audio id="chimes">
+                    <source src="wind_chimes.flac" type="audio/wav">
                 </audio>
             </div>
         </div>
