@@ -78,8 +78,12 @@ button {
 
 /* Full-screen Timer Mode */
 @media (max-width: 600px) {
-    body {
-        padding: 10px;
+    #darkModeToggle {
+        font-size: 14px;
+        padding: 8px 12px;
+        top: auto; /* Reset top */
+        bottom: 10px; /* Move to bottom */
+        right: 10px;
     }
 
     #timerDisplay {
@@ -95,9 +99,15 @@ button {
     }
 
     #darkModeToggle {
-        font-size: 14px;
-        padding: 8px 12px;
-    }
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px 16px;
+    font-size: 16px;
+    border-radius: 5px;
+    z-index: 1000; /* Ensure it stays above other elements */
+}
+
 }
     </style>
 </head>
