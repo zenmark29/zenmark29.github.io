@@ -74,13 +74,20 @@ button {
     padding: 10px 16px;
     font-size: 16px;
     border-radius: 5px;
+    z-index: 1000; /* Ensure it stays above other elements */
 }
 
-/* Full-screen Timer Mode */
+/* On small screens, adjust positioning */
 @media (max-width: 600px) {
-    body {
-        padding: 10px;
+    #darkModeToggle {
+        font-size: 14px;
+        padding: 8px 12px;
+        right: 10px;
+        top: 5px; /* Keep it at the top but smaller */
+        width: auto; /* Prevents full-screen width */
+        height: auto; /* Prevents full-screen height */
     }
+}
 
     #timerDisplay {
         font-size: 80px; /* Even bigger on small screens */
@@ -94,15 +101,7 @@ button {
         font-size: 22px; /* Slightly bigger for better tapability */
     }
 
-    #darkModeToggle {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    padding: 10px 16px;
-    font-size: 16px;
-    border-radius: 5px;
-    z-index: 1000; /* Ensure it stays above other elements */
-}
+    
 
 }
     </style>
