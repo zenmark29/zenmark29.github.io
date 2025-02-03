@@ -88,10 +88,10 @@ document.addEventListener("DOMContentLoaded", function () {
                 gainNode.connect(audioCtx.destination);
 
                 oscillator.start();
-                oscillator.stop(audioCtx.currentTime + 0.2); // Short beep (0.2 sec)
+                oscillator.stop(audioCtx.currentTime + 0.1); // Short beep (0.2 sec)
 
                 i++;
-                setTimeout(beep, 600); // Delay between beeps
+                setTimeout(beep, 800); // Delay between beeps
             }
         }
         beep();
@@ -134,6 +134,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (round + 1 === intervals) {
                         statusDisplay.innerText = "Done!";
                         timerDisplay.innerText = "";
+                        playBeeps(4);
                     } else {
                         startRest(round);
                     }
