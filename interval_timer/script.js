@@ -1,3 +1,8 @@
+if (localStorage.getItem("darkMode") === "true") {
+    document.body.classList.add("dark-mode");
+}
+
+
 document.addEventListener("DOMContentLoaded", function() {
     const formInputs = document.getElementById("inputFields");
     const nameInput = document.getElementById("timerName");
