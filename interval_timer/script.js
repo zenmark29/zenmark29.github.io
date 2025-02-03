@@ -3,7 +3,7 @@ if (localStorage.getItem("darkMode") === "true") {
 }
 
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const formInputs = document.getElementById("inputFields");
     const nameInput = document.getElementById("timerName");
     const warmupInput = document.getElementById("warmup");
@@ -27,16 +27,16 @@ document.addEventListener("DOMContentLoaded", function() {
             <p>Rest: ${timerData.rest} min</p>
             <p>Intervals: ${timerData.intervals}</p>
         `;
-        formInputs.style.display = "none";  
-        saveBtn.style.display = "none";    
-        startBtn.style.display = "inline-block"; 
+        formInputs.style.display = "none";
+        saveBtn.style.display = "none";
+        startBtn.style.display = "inline-block";
     }
 
     function showInputs() {
-        formInputs.style.display = "block"; 
-        saveBtn.style.display = "inline-block"; 
-        startBtn.style.display = "none"; 
-        settingsDisplay.innerHTML = ""; 
+        formInputs.style.display = "block";
+        saveBtn.style.display = "inline-block";
+        startBtn.style.display = "none";
+        settingsDisplay.innerHTML = "";
     }
 
     if (timerData) {
@@ -45,10 +45,10 @@ document.addEventListener("DOMContentLoaded", function() {
         exerciseInput.value = timerData.exercise;
         restInput.value = timerData.rest;
         intervalsInput.value = timerData.intervals;
-        showInputs(); 
+        showInputs();
     }
 
-    saveBtn.addEventListener("click", function() {
+    saveBtn.addEventListener("click", function () {
         const warmup = parseInt(warmupInput.value, 10);
         const exercise = parseInt(exerciseInput.value, 10);
         const rest = parseInt(restInput.value, 10);
@@ -65,24 +65,51 @@ document.addEventListener("DOMContentLoaded", function() {
         displaySettings();
     });
 
-    startBtn.addEventListener("click", function() {
+    startBtn.addEventListener("click", function () {
         startBtn.style.display = "none";
         saveBtn.style.display = "none";
         runTimer();
     });
 
+    function playBeeps(count) {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let i = 0;
+
+        function beep() {
+            if (i < count) {
+                const oscillator = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+
+                oscillator.type = "sine";  // Smooth beep sound
+                oscillator.frequency.setValueAtTime(1000, audioCtx.currentTime); // 1kHz beep
+                gainNode.gain.setValueAtTime(1, audioCtx.currentTime);
+
+                oscillator.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+
+                oscillator.start();
+                oscillator.stop(audioCtx.currentTime + 0.2); // Short beep (0.2 sec)
+
+                i++;
+                setTimeout(beep, 600); // Delay between beeps
+            }
+        }
+        beep();
+    }
+
     function runTimer() {
         let { warmup, exercise, rest, intervals } = timerData;
 
-        function countdown(label, duration, callback) {
+        function countdown(label, duration, beepCount, callback) {
             statusDisplay.innerText = label;
-            let timeLeft = duration * 60; 
-
+            playBeeps(beepCount); // Play the correct beep count at the start of each phase
+            let timeLeft = duration * 60;
+        
             function updateDisplay() {
                 let minutes = Math.floor(timeLeft / 60);
                 let seconds = timeLeft % 60;
                 timerDisplay.innerText = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-                
+        
                 if (timeLeft > 0) {
                     timeLeft--;
                     setTimeout(updateDisplay, 1000);
@@ -95,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         function startSequence() {
             if (warmup > 0) {
-                countdown("Warm-up", warmup, () => startExercise(0));
+                countdown("Warm-up", warmup, 1, () => startExercise(0));  // 1 beep for warm-up
             } else {
                 startExercise(0);
             }
@@ -103,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         function startExercise(round) {
             if (round < intervals) {
-                countdown(`Exercise ${round + 1}/${intervals}`, exercise, () => {
+                countdown(`Exercise ${round + 1}/${intervals}`, exercise, 2, () => {
                     if (round + 1 === intervals) {
                         statusDisplay.innerText = "Done!";
                         timerDisplay.innerText = "";
@@ -115,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         function startRest(round) {
-            countdown("Rest", rest, () => startExercise(round + 1));
+            countdown("Rest", rest, 3, () => startExercise(round + 1));
         }
 
         startSequence();
