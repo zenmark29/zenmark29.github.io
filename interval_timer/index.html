@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interval Timer</title>
+    <style>
+        :root {
+    --bg-color: #f4f4f4;
+    --text-color: #000;
+    --button-bg: #007BFF;
+    --button-text: #fff;
+    --highlight-color:#27ae60;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    padding: 20px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
+    max-width: 500px;
+    margin: auto;
+}
+
+/* Responsive Input Fields & Buttons */
+input, button {
+    display: block;
+    margin: 10px auto;
+    padding: 12px;
+    font-size: 20px;
+    width: 90%;
+    max-width: 350px;
+    border-radius: 5px;
+}
+
+/* Style Buttons */
+button {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    border: none;
+    cursor: pointer;
+}
+
+/* Bigger Timer & Labels */
+#timerDisplay {
+    font-size: 60px;  /* Super large countdown */
+    font-weight: bold;
+    color: var(--highlight-color);
+    margin-top: 20px;
+}
+
+#status {
+    font-size: 42px;  /* Larger Exercise/Rest label */
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Dark Mode */
+.dark-mode {
+    --bg-color: #121212;
+    --text-color: #ffffff;
+    --button-bg: #555;
+    --button-text: #fff;
+    --highlight-color: yellow;
+}
+
+/* Dark Mode Toggle Button */
+#darkModeToggle {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    padding: 10px 16px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+/* Full-screen Timer Mode */
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
+    #timerDisplay {
+        font-size: 80px; /* Even bigger on small screens */
+    }
+
+    #status {
+        font-size: 48px;
+    }
+
+    input, button {
+        font-size: 22px; /* Slightly bigger for better tapability */
+    }
+
+    #darkModeToggle {
+        font-size: 14px;
+        padding: 8px 12px;
+    }
+}
+    </style>
+</head>
+<body>
+
+    <button id="darkModeToggle">Dark Mode</button>
+
+    <h1>Interval Timer</h1>
+
+    <div id="inputFields">
+        <input type="text" id="timerName" placeholder="Timer Name">
+        <input type="number" id="warmup" placeholder="Warm-up (min)" min="0">
+        <input type="number" id="exercise" placeholder="Exercise (min)" min="1">
+        <input type="number" id="rest" placeholder="Rest (min)" min="0">
+        <input type="number" id="intervals" placeholder="Number of Intervals" min="1">
+    </div>
+
+    <button id="saveBtn">Save</button>
+
+    <div id="settingsDisplay"></div>
+
+    <button id="startBtn" style="display: none;">Start</button>
+
+    <h2 id="status"></h2>
+    <div id="timerDisplay"></div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
