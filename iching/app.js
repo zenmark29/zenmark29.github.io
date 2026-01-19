@@ -52,6 +52,7 @@ function renderReading(lines, question) {
     html += `<h2>${hexData.hex}. ${hexData.english}</h2>`;
     html += `<div class="chinese-char">${hexData.hex_font} ${hexData.trad_chinese}</div>`;
     html += `<p class="section-title">The Judgment</p><div class="content">${hexData.wilhelm_judgment.text}</div>`;
+    html += `<p class="section-title">The Comments</p><div class="content">${hexData.wilhelm_judgment.comments}</div>`;
     html += `<p class="section-title">The Image</p><div class="content">${hexData.wilhelm_image.text}</div>`;
 
     // Changes
@@ -61,6 +62,7 @@ function renderReading(lines, question) {
             if (l.isMoving) {
                 const lineData = hexData.wilhelm_lines[String(i + 1)];
                 if (lineData) html += `<div class="moving-line-text"><strong>Line ${i+1}:</strong> ${lineData.text}</div>`;
+                if (lineData) html += `<div class="moving-line-text"><strong>comments:</strong>${lineData.comments}</div>`;
             }
         });
 
@@ -75,7 +77,7 @@ function renderReading(lines, question) {
                 const lineClass = bit === "1" ? "yang" : "yin";
                 html += `<div class="line ${lineClass}">${bit === "0" ? '<div></div><div></div>' : ''}</div>`;
             });
-            html += `</div><p class="section-title">The Context</p><div class="content">${relData.wilhelm_judgment.text}</div>`;
+            html += `</div><p class="section-title">The Context</p><div class="content">${relData.wilhelm_judgment.text} ${relData.wilhelm_judgment.comments}</div>`;
         }
     }
     output.innerHTML = html;
