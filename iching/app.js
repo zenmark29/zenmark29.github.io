@@ -62,7 +62,7 @@ function renderReading(lines, question) {
             if (l.isMoving) {
                 const lineData = hexData.wilhelm_lines[String(i + 1)];
                 if (lineData) html += `<div class="moving-line-text"><strong>Line ${i+1}:</strong> ${lineData.text}</div>`;
-                if (lineData) html += `<div class="moving-line-text"><strong>comments: </strong>${lineData.comments}</div>`;
+                if (lineData) html += `<div class="moving-line-text"><strong>comments:</strong> ${lineData.comments}</div>`;
             }
         });
 
