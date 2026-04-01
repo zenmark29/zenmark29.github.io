@@ -279,8 +279,8 @@
                     var lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 0;
                     var wording = lastStreak == 1 ? " meditation completed." : " meditations completed.";
                     document.getElementById("streak").innerHTML = lastStreak + wording;
-                    var chime_sound = document.getElementById("chimes");
-                    // chime_sound.volume = initial_volume;
+                    var chime_sound = document.getElementById("bowl");
+                    chime_sound.volume = initial_volume;
                     chime_sound.play();
                     fadeVolume(chime_sound, function () { console.log('fade complete'); });
                     noSleep.disable();
@@ -367,15 +367,9 @@
                 <audio id="bowl">
                     <source src="Meditation_Bowl.flac" type="audio/wav">
                 </audio>
-                <audio id="chimes">
-                    <source src="wind_chimes.flac" type="audio/wav">
-                </audio>
+
             </div>
-            <div id="audio_controls" align="center">
-                <audio id="chimes">
-                    <source src="wind_chimes.flac" type="audio/wav">
-                </audio>
-            </div>
+
         </div>
         <div align="center">
             <footer id='footer'>version 0.7.0.8</footer>
