@@ -175,6 +175,25 @@
         // flag so we only play the start sound at the beginning.
         var firstTime = true;
         /**
+        * Plays an audio element repeatedly with a fixed delay between starts.
+        */
+        function playChimeRepeat(audio, times, delayMs) {
+            if (!audio || times <= 0) {
+                return;
+            }
+            audio.currentTime = 0;
+            var promise = audio.play();
+            if (promise && typeof promise.catch === 'function') {
+                promise.catch(function (err) { console.log('chime playback failed:', err); });
+            }
+            if (times > 1) {
+                setTimeout(function () {
+                    playChimeRepeat(audio, times - 1, delayMs);
+                }, delayMs);
+            }
+        }
+
+        /**
         * Starts the meditation session
         * Plays the intro bowl sound
         * Starts the countdown timer
@@ -185,7 +204,7 @@
             if (firstTime) {
                 var bowl_sound = document.getElementById("bowl");
                 initial_volume = bowl_sound.volume;
-                bowl_sound.play();
+                playChimeRepeat(bowl_sound, 3, 2000);
                 fadeVolume(bowl_sound, function () { console.log('fade complete'); });
                 firstTime = false;
             }
