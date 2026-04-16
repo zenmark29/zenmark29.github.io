@@ -3,8 +3,7 @@
 <head>
     <title>My Meditation</title>
     <meta charset="UTF-8">
-    <meta name="description"
-        content="A free, simple, online meditation timer." />
+    <meta name="description" content="A free, simple, online meditation timer." />
     <meta name="keywords" content="meditation, timer">
     <meta name="author" content="Robert Mills">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -202,10 +201,24 @@
             document.getElementById("streak").innerHTML = "&nbsp";
 
             if (firstTime) {
-                var bowl_sound = document.getElementById("bowl");
-                initial_volume = bowl_sound.volume;
-                playChimeRepeat(bowl_sound, 3, 2000);
-                fadeVolume(bowl_sound, function () { console.log('fade complete'); });
+                var bowl_sound_1 = document.getElementById("bowl_1");
+                var bowl_sound_2 = document.getElementById("bowl_2");
+                var bowl_sound_3 = document.getElementById("bowl_3");
+                initial_volume = bowl_sound_1.volume;
+
+                bowl_sound_1.play();
+                fadeVolume(bowl_sound_1, function () { console.log('fade complete'); });
+
+                setTimeout(function () {
+                    bowl_sound_2.play();
+                    fadeVolume(bowl_sound_2, function () { console.log('fade complete'); });
+                }, 2000);
+
+                setTimeout(function () {
+                    bowl_sound_3.play();
+                    fadeVolume(bowl_sound_3, function () { console.log('fade complete'); });
+                }, 4000);
+
                 firstTime = false;
             }
 
@@ -260,21 +273,21 @@
 
                 //if (seconds !== holdSeconds) {
 
-                  //  holdSeconds = seconds;
-                    if (seconds < 30) {
-                        opacity -= opacityChangeConstant;
-                        if (opacity <= 0) {
-                            opacity = 0;
-                        }
-                        messageElement.style.opacity = opacity;
-
-                    } else {
-                        opacity += opacityChangeConstant;
-                        if (opacity > 1) {
-                            opacity = 1;
-                        }
-                        messageElement.style.opacity = opacity;
+                //  holdSeconds = seconds;
+                if (seconds < 30) {
+                    opacity -= opacityChangeConstant;
+                    if (opacity <= 0) {
+                        opacity = 0;
                     }
+                    messageElement.style.opacity = opacity;
+
+                } else {
+                    opacity += opacityChangeConstant;
+                    if (opacity > 1) {
+                        opacity = 1;
+                    }
+                    messageElement.style.opacity = opacity;
+                }
                 //}
                 if (holdMinutes !== minutes) {
                     opacity = 0;
@@ -298,7 +311,7 @@
                     var lastStreak = localStorage.getItem("STREAK") ? localStorage.getItem("STREAK") : 0;
                     var wording = lastStreak == 1 ? " meditation completed." : " meditations completed.";
                     document.getElementById("streak").innerHTML = lastStreak + wording;
-                    var chime_sound = document.getElementById("bowl");
+                    var chime_sound = document.getElementById("bowl_1");
                     chime_sound.volume = initial_volume;
                     chime_sound.play();
                     fadeVolume(chime_sound, function () { console.log('fade complete'); });
@@ -380,10 +393,17 @@
                 <button id="stop_button" onclick="pause()" class="button button5" style="display: none">pause</button>
             </div>
             <div id="timer_display" align="center">
-                <input id="minutes" type="number" min="1" max="60" value="5" item-width="2"> minutes</div>
+                <input id="minutes" type="number" min="1" max="60" value="5" item-width="2"> minutes
+            </div>
 
             <div id="audio_controls" align="center">
-                <audio id="bowl">
+                <audio id="bowl_1">
+                    <source src="Meditation_Bowl.flac" type="audio/wav">
+                </audio>
+                <audio id="bowl_2">
+                    <source src="Meditation_Bowl.flac" type="audio/wav">
+                </audio>
+                <audio id="bowl_3">
                     <source src="Meditation_Bowl.flac" type="audio/wav">
                 </audio>
 
