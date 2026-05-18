@@ -113,7 +113,7 @@
             clearTimeout(timerDisplayId);
             holdMinutes += 1;
             messageId = messageId == 0 ? 0 : messageId - 1;
-            document.getElementById("timer_display").innerHTML = "stopped.";
+            document.getElementById("timer_display").innerHTML = "paused. Click meditate to resume.";
             document.getElementById('messages').innerHTML = '';
             document.getElementById("start_button").style = "display: block";
             document.getElementById("stop_button").style = "display: none";
