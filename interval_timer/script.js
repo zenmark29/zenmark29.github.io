@@ -49,14 +49,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     saveBtn.addEventListener("click", function () {
-        const warmup = parseInt(warmupInput.value, 10);
-        const exercise = parseInt(exerciseInput.value, 10);
-        const rest = parseInt(restInput.value, 10);
+        const warmup = Number(warmupInput.value, 10);
+        const exercise = Number(exerciseInput.value, 10);
+        const rest = Number(restInput.value, 10);
         const intervals = parseInt(intervalsInput.value, 10);
         const name = nameInput.value.trim();
 
         if (!name || isNaN(warmup) || isNaN(exercise) || isNaN(rest) || isNaN(intervals) || warmup < 0 || exercise <= 0 || rest < 0 || intervals <= 0) {
-            alert("Please enter valid values. Exercise & intervals must be at least 1.");
+            alert("Please enter valid values. Exercise must be non-zero. Intervals must be whole numbers.");
             return;
         }
 
@@ -104,12 +104,12 @@ document.addEventListener("DOMContentLoaded", function () {
             statusDisplay.innerText = label;
             playBeeps(beepCount); // Play the correct beep count at the start of each phase
             let timeLeft = duration * 60;
-        
+
             function updateDisplay() {
                 let minutes = Math.floor(timeLeft / 60);
                 let seconds = timeLeft % 60;
                 timerDisplay.innerText = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-        
+
                 if (timeLeft > 0) {
                     timeLeft--;
                     setTimeout(updateDisplay, 1000);
