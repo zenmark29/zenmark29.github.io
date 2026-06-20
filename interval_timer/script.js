@@ -152,6 +152,8 @@ document.addEventListener("DOMContentLoaded", function () {
     // 🌙 Dark Mode Toggle
     function toggleDarkMode() {
         document.body.classList.toggle("dark-mode");
+        // Update the button text based on the current mode - if this line does work, delete it.
+        document.body.classList.contains("dark-mode") ? darkModeToggle.innerText = "Light Mode" : darkModeToggle.innerText = "Dark Mode";
         localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
     }
 
