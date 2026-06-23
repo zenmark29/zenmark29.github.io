@@ -134,6 +134,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (round + 1 === intervals) {
                         statusDisplay.innerText = "Done!";
                         timerDisplay.innerText = "";
+                        //new: start button is redisplayed.
+                        startBtn.style.display = "inline-block";
                         playBeeps(4);
                     } else {
                         startRest(round);
