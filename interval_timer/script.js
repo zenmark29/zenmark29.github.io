@@ -149,7 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
         startSequence();
     }
 
-    // 🌙 Dark Mode Toggle
+    //Dark Mode Toggle
     function toggleDarkMode() {
         document.body.classList.toggle("dark-mode");
         // Update the button text based on the current mode - if this line does work, delete it.
