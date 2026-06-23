@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const statusDisplay = document.getElementById("status");
     const timerDisplay = document.getElementById("timerDisplay");
     const darkModeToggle = document.getElementById("darkModeToggle");
-
+    const resetBtn = document.getElementById("resetBtn");
     let timerData = JSON.parse(localStorage.getItem("intervalTimer")) || null;
 
     function displaySettings() {
@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
         formInputs.style.display = "block";
         saveBtn.style.display = "inline-block";
         startBtn.style.display = "none";
+        resetBtn.style.display = "none";
         settingsDisplay.innerHTML = "";
     }
 
@@ -68,7 +69,16 @@ document.addEventListener("DOMContentLoaded", function () {
     startBtn.addEventListener("click", function () {
         startBtn.style.display = "none";
         saveBtn.style.display = "none";
+        resetBtn.style.display = "none";
         runTimer();
+    });
+
+    resetBtn.addEventListener("click", function () {
+        startBtn.style.display = "none";
+        resetBtn.style.display = "none";
+        timerDisplay.innerText = "";
+        statusDisplay.innerText = "";
+        showInputs();
     });
 
     function playBeeps(count) {
@@ -136,6 +146,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         timerDisplay.innerText = "";
                         //new: start button is redisplayed.
                         startBtn.style.display = "inline-block";
+                        resetBtn.style.display = "inline-block";
                         playBeeps(4);
                     } else {
                         startRest(round);
