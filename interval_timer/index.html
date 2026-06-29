@@ -82,6 +82,21 @@ select {
     z-index: 1000; /* Ensure it stays above other elements */
 }
 
+#timerSelection {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    align-items: center;
+}
+
+#timerSelection select,
+#timerSelection button {
+    width: auto;
+    min-width: 140px;
+    max-width: 240px;
+}
+
 /* On small screens, adjust positioning */
 @media (max-width: 600px) {
     #darkModeToggle {
@@ -118,9 +133,8 @@ select {
     <h1>Interval Timer</h1>
 
     <div id="timerSelection">
-        <select id="timerSelect">
-            <option value="">New timer</option>
-        </select>
+        <select id="timerSelect"></select>
+        <button id="newTimerBtn" type="button">+ New Timer</button>
     </div>
 
     <div id="inputFields">

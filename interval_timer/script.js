@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const pauseBtn = document.getElementById("pauseBtn");
     const resumeBtn = document.getElementById("resumeBtn");
     const timerSelect = document.getElementById("timerSelect");
+    const newTimerBtn = document.getElementById("newTimerBtn");
     const deleteBtn = document.getElementById("deleteBtn");
     let timerData = null;
     let timerStore = {};
@@ -53,6 +54,8 @@ document.addEventListener("DOMContentLoaded", function () {
      * This function is called when the user wants to edit the timer settings.
      */
     function showInputs() {
+        stopCountdown();
+        countdownState = null;
         formInputs.style.display = "block";
         saveBtn.style.display = "inline-block";
         startBtn.style.display = "none";
@@ -61,17 +64,25 @@ document.addEventListener("DOMContentLoaded", function () {
         resumeBtn.style.display = "none";
         deleteBtn.style.display = "none";
         settingsDisplay.innerHTML = "";
+        timerDisplay.innerText = "";
+        statusDisplay.innerText = "";
     }
 
     function populateTimerSelect() {
         timerSelect.innerHTML = "";
 
-        const newOption = document.createElement("option");
-        newOption.value = "";
-        newOption.textContent = "New timer";
-        timerSelect.appendChild(newOption);
+        const timerNames = Object.keys(timerStore);
+        if (timerNames.length === 0) {
+            const placeholder = document.createElement("option");
+            placeholder.value = "";
+            placeholder.textContent = "No saved timers";
+            placeholder.disabled = true;
+            placeholder.selected = true;
+            timerSelect.appendChild(placeholder);
+            return;
+        }
 
-        Object.keys(timerStore).forEach((key) => {
+        timerNames.forEach((key) => {
             const option = document.createElement("option");
             option.value = key;
             option.textContent = key;
@@ -97,20 +108,25 @@ document.addEventListener("DOMContentLoaded", function () {
     timerSelect.addEventListener("change", function () {
         const selectedName = timerSelect.value;
         if (!selectedName) {
-            timerData = null;
-            nameInput.value = "";
-            warmupInput.value = "";
-            exerciseInput.value = "";
-            restInput.value = "";
-            intervalsInput.value = "";
-            deleteBtn.style.display = "none";
-            showInputs();
             return;
         }
 
         loadTimer(selectedName);
         displaySettings();
         deleteBtn.style.display = "inline-block";
+    });
+
+    newTimerBtn.addEventListener("click", function () {
+        timerSelect.selectedIndex = -1;
+        timerData = null;
+        nameInput.value = "";
+        warmupInput.value = "";
+        exerciseInput.value = "";
+        restInput.value = "";
+        intervalsInput.value = "";
+        deleteBtn.style.display = "none";
+        showInputs();
+        nameInput.focus && nameInput.focus();
     });
 
     if (timerStore && Object.keys(timerStore).length > 0) {
