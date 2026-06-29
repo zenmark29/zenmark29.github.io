@@ -17,7 +17,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const timerDisplay = document.getElementById("timerDisplay");
     const darkModeToggle = document.getElementById("darkModeToggle");
     const resetBtn = document.getElementById("resetBtn");
+    const pauseBtn = document.getElementById("pauseBtn");
+    const resumeBtn = document.getElementById("resumeBtn");
     let timerData = JSON.parse(localStorage.getItem("intervalTimer")) || null;
+    let countdownTimer = null;
+    let countdownState = null;
 
     function displaySettings() {
         settingsDisplay.innerHTML = `
@@ -45,7 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
         pauseBtn.style.display = "none";
         resumeBtn.style.display = "none";
         settingsDisplay.innerHTML = "";
-        pauseBtn.style.display = "none"; // Hide the pause button when showing inputs
     }
 
     if (timerData) {
@@ -75,6 +78,91 @@ document.addEventListener("DOMContentLoaded", function () {
         displaySettings();
     });
 
+    function stopCountdown() {
+        if (countdownTimer) {
+            clearInterval(countdownTimer);
+            countdownTimer = null;
+        }
+    }
+
+    function formatTime(totalSeconds) {
+        const minutes = Math.floor(totalSeconds / 60);
+        const seconds = totalSeconds % 60;
+        return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+    }
+
+    function startCountdown({ label, durationSeconds, beepCount, onComplete }) {
+        stopCountdown();
+
+        countdownState = {
+            label,
+            remainingSeconds: durationSeconds,
+            paused: false,
+            onComplete,
+        };
+
+        statusDisplay.innerText = label;
+        timerDisplay.innerText = formatTime(durationSeconds);
+        playBeeps(beepCount);
+
+        countdownTimer = setInterval(() => {
+            if (!countdownState || countdownState.paused) {
+                return;
+            }
+
+            countdownState.remainingSeconds -= 1;
+            timerDisplay.innerText = formatTime(countdownState.remainingSeconds);
+
+            if (countdownState.remainingSeconds <= 0) {
+                stopCountdown();
+                const complete = countdownState.onComplete;
+                countdownState = null;
+                complete();
+            }
+        }, 1000);
+    }
+
+    function pauseTimer() {
+        if (!countdownState || countdownState.paused) {
+            return;
+        }
+
+        countdownState.paused = true;
+        stopCountdown();
+        pauseBtn.style.display = "none";
+        resumeBtn.style.display = "inline-block";
+        resetBtn.style.display = "inline-block";
+    }
+
+    function resumeTimer() {
+        if (!countdownState || !countdownState.paused) {
+            return;
+        }
+
+        countdownState.paused = false;
+        pauseBtn.style.display = "inline-block";
+        resumeBtn.style.display = "none";
+        resetBtn.style.display = "none";
+        statusDisplay.innerText = countdownState.label;
+        timerDisplay.innerText = formatTime(countdownState.remainingSeconds);
+
+        countdownTimer = setInterval(() => {
+            if (!countdownState || countdownState.paused) {
+                return;
+            }
+
+            countdownState.remainingSeconds -= 1;
+            timerDisplay.innerText = formatTime(countdownState.remainingSeconds);
+
+            if (countdownState.remainingSeconds <= 0) {
+                stopCountdown();
+                const complete = countdownState.onComplete;
+                countdownState = null;
+                complete();
+            }
+        }, 1000);
+    }
+
     // START
     startBtn.addEventListener("click", function () {
         startBtn.style.display = "none";
@@ -83,28 +171,17 @@ document.addEventListener("DOMContentLoaded", function () {
         pauseBtn.style.display = "inline-block";
         runTimer();
     });
+
     // PAUSE
-    pauseBtn.addEventListener("click", function () {
-        // Implement pause functionality here
-        // This is a placeholder for the pause feature
-        //pauseTimer(); //implement this function to handle pausing the timer
-        pauseBtn.style.display = "none";
-        resumeBtn.style.display = "inline-block";
-        resetBtn.style.display = "inline-block";
-        // alert("Pause functionality is not yet implemented.");
-    });
+    pauseBtn.addEventListener("click", pauseTimer);
 
     // RESUME
-    resumeBtn.addEventListener("click", function () {
-        // Implement resume functionality here
-        // This is a placeholder for the resume feature
-        //resumeTimer(); //implement this function to handle resuming the timer
-        // resumeBtn.style.display = "none";
-        // alert("Resume functionality is not yet implemented.");
-    });
+    resumeBtn.addEventListener("click", resumeTimer);
 
     // RESET
     resetBtn.addEventListener("click", function () {
+        stopCountdown();
+        countdownState = null;
         startBtn.style.display = "none";
         resetBtn.style.display = "none";
         timerDisplay.innerText = "";
@@ -141,29 +218,14 @@ document.addEventListener("DOMContentLoaded", function () {
     function runTimer() {
         let { warmup, exercise, rest, intervals } = timerData;
 
-        function countdown(label, duration, beepCount, callback) {
-            statusDisplay.innerText = label;
-            playBeeps(beepCount); // Play the correct beep count at the start of each phase
-            let timeLeft = duration * 60;
-
-            function updateDisplay() {
-                let minutes = Math.floor(timeLeft / 60);
-                let seconds = timeLeft % 60;
-                timerDisplay.innerText = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
-
-                if (timeLeft > 0) {
-                    timeLeft--;
-                    setTimeout(updateDisplay, 1000);
-                } else {
-                    callback();
-                }
-            }
-            updateDisplay();
-        }
-
         function startSequence() {
             if (warmup > 0) {
-                countdown("Warm-up", warmup, 1, () => startExercise(0));  // 1 beep for warm-up
+                startCountdown({
+                    label: "Warm-up",
+                    durationSeconds: warmup * 60,
+                    beepCount: 1,
+                    onComplete: () => startExercise(0),
+                });
             } else {
                 startExercise(0);
             }
@@ -171,23 +233,34 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function startExercise(round) {
             if (round < intervals) {
-                countdown(`Exercise ${round + 1}/${intervals}`, exercise, 2, () => {
-                    if (round + 1 === intervals) {
-                        statusDisplay.innerText = "Done!";
-                        timerDisplay.innerText = "";
-                        //new: start button is redisplayed.
-                        startBtn.style.display = "inline-block";
-                        resetBtn.style.display = "inline-block";
-                        playBeeps(4);
-                    } else {
-                        startRest(round);
-                    }
+                startCountdown({
+                    label: `Exercise ${round + 1}/${intervals}`,
+                    durationSeconds: exercise * 60,
+                    beepCount: 2,
+                    onComplete: () => {
+                        if (round + 1 === intervals) {
+                            statusDisplay.innerText = "Done!";
+                            timerDisplay.innerText = "";
+                            startBtn.style.display = "inline-block";
+                            resetBtn.style.display = "inline-block";
+                            pauseBtn.style.display = "none";
+                            resumeBtn.style.display = "none";
+                            playBeeps(4);
+                        } else {
+                            startRest(round);
+                        }
+                    },
                 });
             }
         }
 
         function startRest(round) {
-            countdown("Rest", rest, 3, () => startExercise(round + 1));
+            startCountdown({
+                label: "Rest",
+                durationSeconds: rest * 60,
+                beepCount: 3,
+                onComplete: () => startExercise(round + 1),
+            });
         }
 
         startSequence();
