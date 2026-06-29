@@ -25,7 +25,7 @@ body {
 }
 
 /* Responsive Input Fields & Buttons */
-input, button {
+input, button, select {
     display: block;
     margin: 10px auto;
     padding: 12px;
@@ -41,6 +41,11 @@ button {
     color: var(--button-text);
     border: none;
     cursor: pointer;
+}
+
+select {
+    background-color: #fff;
+    color: #000;
 }
 
 /* Bigger Timer & Labels */
@@ -112,6 +117,12 @@ button {
 
     <h1>Interval Timer</h1>
 
+    <div id="timerSelection">
+        <select id="timerSelect">
+            <option value="">New timer</option>
+        </select>
+    </div>
+
     <div id="inputFields">
         <input type="text" id="timerName" placeholder="Timer Name">
         <input type="number" id="warmup" placeholder="Warm-up (min)" min="0">
@@ -128,6 +139,9 @@ button {
     <button id="pauseBtn" style="display: none;">Pause</button>
     <button id="resumeBtn" style="display: none;">Resume</button>
      <button id="resetBtn" style="display: none;">Reset</button>
+    <button id="deleteBtn" style="display: none;">Delete</button>
+
+
 
     <h2 id="status"></h2>
     <div id="timerDisplay"></div>

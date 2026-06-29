@@ -19,7 +19,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const resetBtn = document.getElementById("resetBtn");
     const pauseBtn = document.getElementById("pauseBtn");
     const resumeBtn = document.getElementById("resumeBtn");
-    let timerData = JSON.parse(localStorage.getItem("intervalTimer")) || null;
+    const timerSelect = document.getElementById("timerSelect");
+    const deleteBtn = document.getElementById("deleteBtn");
+    let timerData = null;
+    let timerStore = JSON.parse(localStorage.getItem("intervalTimers")) || {};
     let countdownTimer = null;
     let countdownState = null;
 
@@ -35,6 +38,7 @@ document.addEventListener("DOMContentLoaded", function () {
         saveBtn.style.display = "none";
         startBtn.style.display = "inline-block";
         resetBtn.style.display = "inline-block";
+        deleteBtn.style.display = "none";
     }
 
     /**
@@ -48,16 +52,56 @@ document.addEventListener("DOMContentLoaded", function () {
         resetBtn.style.display = "none";
         pauseBtn.style.display = "none";
         resumeBtn.style.display = "none";
+        deleteBtn.style.display = "none";
         settingsDisplay.innerHTML = "";
     }
 
-    if (timerData) {
-        nameInput.value = timerData.name;
-        warmupInput.value = timerData.warmup;
-        exerciseInput.value = timerData.exercise;
-        restInput.value = timerData.rest;
-        intervalsInput.value = timerData.intervals;
-        showInputs();
+    function populateTimerSelect() {
+        timerSelect.innerHTML = `<option value="">New timer</option>`;
+        Object.keys(timerStore).forEach((key) => {
+            timerSelect.innerHTML += `<option value="${key}">${key}</option>`;
+        });
+    }
+
+    function setFormValues(data) {
+        nameInput.value = data.name;
+        warmupInput.value = data.warmup;
+        exerciseInput.value = data.exercise;
+        restInput.value = data.rest;
+        intervalsInput.value = data.intervals;
+    }
+
+    function loadTimer(name) {
+        timerData = timerStore[name];
+        setFormValues(timerData);
+    }
+
+    populateTimerSelect();
+
+    timerSelect.addEventListener("change", function () {
+        const selectedName = timerSelect.value;
+        if (!selectedName) {
+            timerData = null;
+            nameInput.value = "";
+            warmupInput.value = "";
+            exerciseInput.value = "";
+            restInput.value = "";
+            intervalsInput.value = "";
+            deleteBtn.style.display = "none";
+            showInputs();
+            return;
+        }
+
+        loadTimer(selectedName);
+        displaySettings();
+        deleteBtn.style.display = "inline-block";
+    });
+
+    if (timerStore && Object.keys(timerStore).length > 0) {
+        const firstTimer = Object.keys(timerStore)[0];
+        timerSelect.value = firstTimer;
+        loadTimer(firstTimer);
+        displaySettings();
     }
 
     // SAVE
@@ -74,8 +118,12 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         timerData = { name, warmup, exercise, rest, intervals };
-        localStorage.setItem("intervalTimer", JSON.stringify(timerData));
+        timerStore[name] = timerData;
+        localStorage.setItem("intervalTimers", JSON.stringify(timerStore));
+        populateTimerSelect();
+        timerSelect.value = name;
         displaySettings();
+        deleteBtn.style.display = "inline-block";
     });
 
     function stopCountdown() {
@@ -169,6 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
         saveBtn.style.display = "none";
         resetBtn.style.display = "none";
         pauseBtn.style.display = "inline-block";
+        deleteBtn.style.display = "none";
         runTimer();
     });
 
@@ -187,6 +236,38 @@ document.addEventListener("DOMContentLoaded", function () {
         timerDisplay.innerText = "";
         statusDisplay.innerText = "";
         showInputs();
+    });
+
+    // DELETE SAVED TIMER
+    deleteBtn.addEventListener("click", function () {
+        const selected = timerSelect.value;
+        if (!selected) {
+            return;
+        }
+
+        if (!confirm(`Delete timer "${selected}"?`)) {
+            return;
+        }
+
+        delete timerStore[selected];
+        localStorage.setItem("intervalTimers", JSON.stringify(timerStore));
+        populateTimerSelect();
+
+        if (Object.keys(timerStore).length > 0) {
+            const nextTimer = Object.keys(timerStore)[0];
+            timerSelect.value = nextTimer;
+            loadTimer(nextTimer);
+            displaySettings();
+        } else {
+            timerSelect.value = "";
+            timerData = null;
+            nameInput.value = "";
+            warmupInput.value = "";
+            exerciseInput.value = "";
+            restInput.value = "";
+            intervalsInput.value = "";
+            showInputs();
+        }
     });
 
     function playBeeps(count) {
@@ -245,6 +326,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             resetBtn.style.display = "inline-block";
                             pauseBtn.style.display = "none";
                             resumeBtn.style.display = "none";
+                            deleteBtn.style.display = "inline-block";
                             playBeeps(4);
                         } else {
                             startRest(round);
