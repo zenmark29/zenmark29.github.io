@@ -22,7 +22,14 @@ document.addEventListener("DOMContentLoaded", function () {
     const timerSelect = document.getElementById("timerSelect");
     const deleteBtn = document.getElementById("deleteBtn");
     let timerData = null;
-    let timerStore = JSON.parse(localStorage.getItem("intervalTimers")) || {};
+    let timerStore = {};
+
+    try {
+        timerStore = JSON.parse(localStorage.getItem("intervalTimers")) || {};
+    } catch (error) {
+        timerStore = {};
+    }
+
     let countdownTimer = null;
     let countdownState = null;
 
@@ -57,9 +64,18 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function populateTimerSelect() {
-        timerSelect.innerHTML = `<option value="">New timer</option>`;
+        timerSelect.innerHTML = "";
+
+        const newOption = document.createElement("option");
+        newOption.value = "";
+        newOption.textContent = "New timer";
+        timerSelect.appendChild(newOption);
+
         Object.keys(timerStore).forEach((key) => {
-            timerSelect.innerHTML += `<option value="${key}">${key}</option>`;
+            const option = document.createElement("option");
+            option.value = key;
+            option.textContent = key;
+            timerSelect.appendChild(option);
         });
     }
 
