@@ -30,14 +30,22 @@ document.addEventListener("DOMContentLoaded", function () {
         formInputs.style.display = "none";
         saveBtn.style.display = "none";
         startBtn.style.display = "inline-block";
+        resetBtn.style.display = "inline-block";
     }
 
+    /**
+     * Show the input fields and hide the settings display.
+     * This function is called when the user wants to edit the timer settings.
+     */
     function showInputs() {
         formInputs.style.display = "block";
         saveBtn.style.display = "inline-block";
         startBtn.style.display = "none";
         resetBtn.style.display = "none";
+        pauseBtn.style.display = "none";
+        resumeBtn.style.display = "none";
         settingsDisplay.innerHTML = "";
+        pauseBtn.style.display = "none"; // Hide the pause button when showing inputs
     }
 
     if (timerData) {
@@ -49,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         showInputs();
     }
 
+    // SAVE
     saveBtn.addEventListener("click", function () {
         const warmup = Number(warmupInput.value, 10);
         const exercise = Number(exerciseInput.value, 10);
@@ -66,13 +75,35 @@ document.addEventListener("DOMContentLoaded", function () {
         displaySettings();
     });
 
+    // START
     startBtn.addEventListener("click", function () {
         startBtn.style.display = "none";
         saveBtn.style.display = "none";
         resetBtn.style.display = "none";
+        pauseBtn.style.display = "inline-block";
         runTimer();
     });
+    // PAUSE
+    pauseBtn.addEventListener("click", function () {
+        // Implement pause functionality here
+        // This is a placeholder for the pause feature
+        //pauseTimer(); //implement this function to handle pausing the timer
+        pauseBtn.style.display = "none";
+        resumeBtn.style.display = "inline-block";
+        resetBtn.style.display = "inline-block";
+        // alert("Pause functionality is not yet implemented.");
+    });
 
+    // RESUME
+    resumeBtn.addEventListener("click", function () {
+        // Implement resume functionality here
+        // This is a placeholder for the resume feature
+        //resumeTimer(); //implement this function to handle resuming the timer
+        // resumeBtn.style.display = "none";
+        // alert("Resume functionality is not yet implemented.");
+    });
+
+    // RESET
     resetBtn.addEventListener("click", function () {
         startBtn.style.display = "none";
         resetBtn.style.display = "none";
