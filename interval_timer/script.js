@@ -370,7 +370,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         function startRest(round) {
             startCountdown({
-                label: "Rest",
+                label: "Rest " + (round +1) + "/" + intervals,
                 durationSeconds: rest * 60,
                 beepCount: 3,
                 onComplete: () => startExercise(round + 1),
