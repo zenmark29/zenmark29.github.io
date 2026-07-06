@@ -369,12 +369,16 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         function startRest(round) {
-            startCountdown({
-                label: "Rest " + (round +1) + "/" + intervals,
-                durationSeconds: rest * 60,
-                beepCount: 3,
-                onComplete: () => startExercise(round + 1),
-            });
+            if (rest > 0) {
+                startCountdown({
+                    label: "Rest " + (round + 1) + "/" + intervals,
+                    durationSeconds: rest * 60,
+                    beepCount: 3,
+                    onComplete: () => startExercise(round + 1),
+                });
+            } else {
+                startExercise(round + 1);
+            }
         }
 
         startSequence();
