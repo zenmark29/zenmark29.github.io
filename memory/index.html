@@ -1,36 +1,141 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory Test</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory App</title>
+  <style>
+    /* General layout and alignment */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    h1, h2 {
+      color: #333;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    /* Align inputs on the same line */
+    .form-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .form-row label {
+      width: 150px;
+      margin-right: 10px;
+    }
+
+    .form-row input {
+      flex: 1;
+      padding: 5px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+    }
+
+    button {
+      padding: 8px 12px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #218838;
+    }
+
+    select {
+      padding: 5px;
+      border-radius: 3px;
+    }
+
+    /* Styling for the test section */
+    #test-section div {
+      margin-bottom: 10px;
+    }
+
+    /* Align input fields and buttons */
+    .button-row {
+      margin-top: 15px;
+    }
+
+    input[type="text"] {
+      width: 300px;
+    }
+
+    /* Error and success input styles */
+    input[type="text"].error {
+      border-color: red;
+    }
+
+    input[type="text"].success {
+      border-color: green;
+    }
+  </style>
 </head>
-
 <body>
-    <div id="main-container" class="container">
-        <h1>Memory Test</h1>
-        <label for="itemCount">Enter the number of items: </label>
-        <input type="number" id="itemCount">
-        <div style="display: flex;" id="flex-container" class="container">
+  <h1>Memory App</h1>
 
+  <!-- Form for creating or updating data -->
+  <div>
+    <h2>Create/Update Fact</h2>
+    <form id="memory-form">
+      <div class="form-row">
+        <label for="title">Title:</label>
+        <input type="text" id="title" required>
+      </div>
 
-            <div class="container">
+      <div class="form-row">
+        <label for="prompt">Prompt:</label>
+        <input type="text" id="prompt" required>
+      </div>
 
+      <div class="form-row">
+        <label for="remember">Thing to Remember:</label>
+        <input type="text" id="remember" required>
+      </div>
 
-                <button id="createButton">Create Fields</button>
-                <button id="saveButton">Save/Hide Data</button>
-                <button id="testButton">Test Memory</button>
-                <button id="reviewButton">Review Data</button>
-                <button id="resetButton">Remove Data</button>
-            </div>
-            <div id="data-container" class="hidden">
-                <!-- Display saved data here -->
-            </div>
-        </div>
-    </div>
+      <div class="button-row">
+        <button type="submit">Save Fact</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Section for reviewing data -->
+  <div>
+    <h2>Review Facts</h2>
+    <select id="titles"></select>
+    <button onclick="reviewFacts()">Review</button>
+    <div id="review-section"></div>
+  </div>
+
+  <!-- Section for deleting data -->
+  <div>
+    <h2>Delete Data</h2>
+    <select id="delete-titles"></select>
+    <button onclick="deleteData()">Delete</button>
+  </div>
+
+  <!-- Section for testing memory -->
+  <div>
+    <h2>Test Your Memory</h2>
+    <select id="test-titles"></select>
+    <button onclick="startTest()">Start Test</button>
+    <div id="test-section"></div>
+  </div>
+
+  <script src="app.js"></script>
 </body>
-<script src="script.js"></script>
-
 </html>
