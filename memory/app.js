@@ -137,7 +137,7 @@ function deleteData() {
         testSection.innerHTML = ''; // Clear previous test
 
         // Hide review data
-        document.getElementById('review-section').style.display = 'none';
+        document.getElementById('review-section').style.display = 'none'; // Hide review section
         document.getElementById('test-section').style.display = 'block'; // Show test section
 
         if (storedData[selectedTitle]) {
