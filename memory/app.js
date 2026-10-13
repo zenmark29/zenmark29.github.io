@@ -89,7 +89,18 @@ function reviewFacts() {
             const prompt = storedData[selectedTitle][fact][0];
             const remember = storedData[selectedTitle][fact][1];
             const factDiv = document.createElement('div');
-            factDiv.innerHTML = `<strong>Prompt:</strong> ${prompt} <br> <strong>Remember:</strong> ${remember}<br>`;
+            const promptLabel = document.createElement('strong');
+            promptLabel.textContent = 'Prompt:';
+            const rememberLabel = document.createElement('strong');
+            rememberLabel.textContent = 'Remember:';
+            factDiv.append(
+                promptLabel,
+                ` ${prompt} `,
+                document.createElement('br'),
+                rememberLabel,
+                ` ${remember}`,
+                document.createElement('br')
+            );
             reviewSection.appendChild(factDiv);
         }
     }
@@ -148,7 +159,11 @@ function deleteData() {
                 const prompt = storedData[selectedTitle][fact][0];
 
                 const promptDiv = document.createElement('div');
-                promptDiv.innerHTML = `<label><strong>Prompt:</strong> ${prompt}</label><br>`;
+                const promptLabel = document.createElement('label');
+                const promptHeading = document.createElement('strong');
+                promptHeading.textContent = 'Prompt:';
+                promptLabel.append(promptHeading, ` ${prompt}`);
+                promptDiv.append(promptLabel, document.createElement('br'));
 
                 const inputField = document.createElement('input');
                 inputField.type = 'text';
@@ -190,6 +205,5 @@ function deleteData() {
             }
         }
     }
-
 
 
